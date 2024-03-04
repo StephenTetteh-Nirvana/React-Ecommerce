@@ -37,6 +37,7 @@ const Navbar = () => {
             </ul>
         </div>
 
+
         <div className="user-section">
           <div className="cart-box">
               <img src={Cart} alt="user"/>
