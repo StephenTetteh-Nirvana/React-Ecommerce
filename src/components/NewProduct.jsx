@@ -1,0 +1,55 @@
+import Favorite from "../images/favorites.png"
+import Liked from "../images/product-favorite-red.png"
+import Rating from "../images/rating.png"
+import { useState } from "react"
+import { db } from "../firebase.js"
+import { getDoc, updateDoc, doc } from "firebase/firestore"
+
+
+const NewProduct = ({product,index}) => {
+
+    const [wishlist,setWishlist] = useState(false)
+
+    const toggleFavorite = async (productId) => {
+        const docRef = doc(db, "New Releases", productId);
+        const docSnap = await getDoc(docRef);
+    
+        if (docSnap.exists()) {
+            const docData = docSnap.data().favorite;
+            setWishlist(!wishlist);
+            await updateDoc(docData, { favorite: docData });
+        } else {
+            console.log("Document not found:", productId);
+        }
+    };
+
+
+  return (
+
+    <div key={index}  className="featured-product">
+    <img src={require(`../images/${product.src}`)} alt="Image Here"></img>
+    <div className="product-details-section">
+        <p className="title">{product.name}</p>
+        <p className="subtitle">{product.description}</p>
+        <div className="price-section">
+        <div className="rating-box">
+             <img src={Rating}/>
+             <img src={Rating}/>
+             <img src={Rating}/>
+             <img src={Rating}/>
+             <img src={Rating}/>
+        </div>
+        <p className="price">{product.price}</p>
+        </div>
+    </div>
+        <div onClick={()=>{toggleFavorite(product.id)}} className="product-favorites-box">
+            <div className="favorite-box">
+               <img src={product.favorite ? Liked : Favorite}/>
+            </div>
+            
+        </div>
+    </div>  
+  )
+}
+
+export default NewProduct

@@ -1,0 +1,57 @@
+.wrapper{
+    background-color:#FFFFFF;
+    position:fixed;
+    left:70%;
+    top:0px;
+    width:500px;
+    height:100vh;
+    z-index:999;
+    color:black;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.8);
+    animation:showCart 0.5s forwards;
+}
+@keyframes showCart {
+    0%{
+        left:100%;
+    }
+    100%{
+        left:70%;
+    }
+}
+.closed{
+    animation:HideCart 0.7s forwards;
+}
+@keyframes HideCart {
+   100%{
+    left:110%;
+   }
+}
+.no-items{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+}
+.no-items h1{
+    font-size:18px;
+}
+.no-items button{
+    padding:10px 30px;
+    border-radius:25px;
+    text-align:center;
+    border:none;
+    background:#000;
+    color:#FFFFFF;
+    margin-top:10px;
+    cursor: pointer;
+}
+.close-cart-box{
+    position:absolute;
+    left:10px;
+    top:10px;
+    cursor:pointer;
+}
+.empty-bag-box img{
+    width:60px;
+    height:60px;
+}

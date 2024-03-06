@@ -1,14 +1,20 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import "../css/Navbar.css"
 import Logo from "../images/logo.png"
 import User from "../images/user.png"
-import Cart from "../images/cart.png"
+import ShoppingBag from "../images/cart.png"
 import Favorites from "../images/favorites.png"
 import {Link} from "react-router-dom"
 import MobileNavigations from "../components/MobileNavigations.jsx"
+import Cart from "../components/Cart.jsx"
 
 const Navbar = () => {
   const [mobileDisplay,setMobileDisplay] = useState(false);
+  const [displayCart,setDisplayCart] = useState(false)
+
+  const toggleCart = () =>{
+    setDisplayCart(!displayCart)
+  }
 
   return (
     <div className='nav-container'>
@@ -40,10 +46,12 @@ const Navbar = () => {
 
 
         <div className="user-section">
-          <div className="cart-box">
-              <img src={Cart} alt="user"/>
+          <div onClick={toggleCart} className="cart-box">
+              <img src={ShoppingBag} alt="user"/>
               <span>1</span>
           </div>
+          
+          {displayCart && <Cart/>}
 
           <div className="favorites-box">
             <Link to="/favorites">

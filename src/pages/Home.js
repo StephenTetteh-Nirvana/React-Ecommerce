@@ -1,11 +1,15 @@
 import Navbar from "../components/Navbar.jsx"
+import Showcase from "../components/Showcase.jsx"
+import FeaturedProducts from "../components/FeaturedProducts.jsx"
+
 
 const Home = () => {
 
   return (
     <div>
       <Navbar/>
-      <h1>Home Page</h1>
+      <Showcase/>
+      <FeaturedProducts/>
     </div>
   )
 }
