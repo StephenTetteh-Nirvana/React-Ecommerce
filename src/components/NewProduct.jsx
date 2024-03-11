@@ -6,7 +6,7 @@ import { db } from "../firebase.js"
 import { getDoc, updateDoc, doc } from "firebase/firestore"
 
 
-const NewProduct = ({product,index}) => {
+const NewProduct = ({product}) => {
 
     const [wishlist,setWishlist] = useState(false)
 
@@ -24,9 +24,10 @@ const NewProduct = ({product,index}) => {
     };
 
 
+
   return (
 
-    <div key={index}  className="featured-product">
+    <div className="featured-product">
     <img src={require(`../images/${product.src}`)} alt="Image Here"></img>
     <div className="product-details-section">
         <p className="title">{product.name}</p>

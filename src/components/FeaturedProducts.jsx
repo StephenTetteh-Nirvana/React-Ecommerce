@@ -8,22 +8,11 @@ const FeaturedProducts = () => {
     
     const [newReleases,setReleases] = useState([])
 
-      
-    const featuredImages = [
-        {
-            src:"background.jpg",
-            favorites:false,
-            name:"Nike Jordans",
-            description:"Introducing the Nike Retro Shoes, a timeless blend of style and comfort.",
-            price:50.99
-        }
-    ]
-
     const fetchProducts = async () =>{
          const colRef = collection(db,"New Releases")
          const docRef = await getDocs(colRef)
 
-         const products = []
+         const featuredProducts = []
        
          docRef.forEach((product)=>{
             const productData = {
@@ -34,11 +23,11 @@ const FeaturedProducts = () => {
                 description:product.data().description,
                 favorite:product.data().favorite
             }
-            products.push(productData)
+            featuredProducts.push(productData)
             console.log(product.id)
          })
 
-         setReleases([...newReleases, ...products])
+         setReleases([...newReleases, ...featuredProducts])
     }
 
     useEffect(()=>{
@@ -53,8 +42,8 @@ const FeaturedProducts = () => {
           <h1 className="heading">FEATURED PRODUCTS</h1>
           
           <div className="featured-products">
-              { newReleases.map((product,index)=>(
-                       <NewProduct product={product} index={index} />
+              { newReleases.map((product)=>(
+                       <NewProduct product={product} key={product.id} />
               ))
             
                     

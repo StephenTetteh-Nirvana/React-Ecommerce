@@ -55,3 +55,23 @@
     width:60px;
     height:60px;
 }
+
+
+/*  Cart Items  */
+
+.cart-product-container{
+    width:100%;
+    margin-top:50px;
+    height: 540px;
+    overflow: auto;
+}
+
+.cart-heading{
+    font-weight:600;
+    position:absolute;
+    left:60px;
+    top:22px;
+}
+.delete-btn{
+    cursor: pointer;
+}

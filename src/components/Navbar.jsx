@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState,useEffect,useContext } from "react"
 import "../css/Navbar.css"
 import Logo from "../images/logo.png"
 import User from "../images/user.png"
@@ -7,6 +7,7 @@ import Favorites from "../images/favorites.png"
 import {Link} from "react-router-dom"
 import MobileNavigations from "../components/MobileNavigations.jsx"
 import Cart from "../components/Cart.jsx"
+import GlobalState from "../GlobalState.js"
 
 const Navbar = () => {
   const [mobileDisplay,setMobileDisplay] = useState(false);
@@ -16,6 +17,11 @@ const Navbar = () => {
     setDisplayCart(!displayCart)
   }
 
+  useEffect(() => {
+  }, [displayCart]);
+
+  const { cart } = useContext(GlobalState)
+
   return (
     <div className='nav-container'>
         <div className="first-section">
@@ -23,32 +29,10 @@ const Navbar = () => {
             <h3>YOU-SHOP</h3>
         </div>
 
-        <div className="second-section">
-            <ul>
-              <Link className="to-men" to="/men">
-               <li>Men</li>
-              </Link>
-
-                <Link className="to-women" to="/women">
-                 <li>Women</li>
-                </Link>
-
-                  <Link className="to-accessories" to="/accessories">
-                   <li>Accessories</li>
-                  </Link>
-
-                    <Link className="to-kids" to="/kids">
-                      <li>Kids</li>
-                    </Link>
-            </ul>
-        </div>
-
-
-
         <div className="user-section">
           <div onClick={toggleCart} className="cart-box">
               <img src={ShoppingBag} alt="user"/>
-              <span>1</span>
+              <span>{cart.length}</span>
           </div>
           
           {displayCart && <Cart/>}

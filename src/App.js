@@ -5,10 +5,7 @@ import About from "./pages/About.js"
 import Contact from "./pages/Contact.js"
 import NotFound from "./pages/NotFound.js"
 import User from "./pages/User.js"
-import Men from "./pages/Men.js"
-import Women from "./pages/Women.js"
-import Accessories from "./pages/Accessories.js"
-import Kids from "./pages/Kids.js"
+import Products from "./pages/Products.js"
 import Favorites from "./pages/Favorites.js"
 
 
@@ -24,11 +21,8 @@ function App() {
         <Route path="/user" element={<User/>}></Route>
         <Route path="*" element={<NotFound/>}></Route>
 
-        <Route path="/men" element={<Men/>}></Route>
-        <Route path="/women" element={<Women/>}></Route>
-        <Route path="/accessories" element={<Accessories/>}></Route>
-        <Route path="/kids" element={<Kids/>}></Route>
-        <Route path="/favorites" element={<Favorites/>}></Route>
+        <Route path="/products" element={<Products/>}></Route>
+        <Route path="/favorite" element={<Favorites/>}></Route>
 
       </Routes>
     </div>

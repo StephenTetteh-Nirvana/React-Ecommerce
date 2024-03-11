@@ -1,0 +1,9 @@
+.products-wrapper{
+    width:100%;
+    min-height:100vh;
+}
+
+.products-container{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+}

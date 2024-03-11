@@ -1,0 +1,35 @@
+.newsletter-container{
+    background:black;
+    color:white;
+    display: flex;
+    justify-content: space-between;
+    height:30vh;
+    padding:20px 0px;
+}
+.footer-image-section{
+    margin-left:25px;
+}
+.newsletter-section input{
+     padding:6px 20px;
+     outline:none;
+     appearance:none;
+     border:none;
+}
+
+.newsletter-section button{
+    padding:6px 20px;
+    border:none;
+    background-color:#2666CF;
+    color:white;
+    margin-left:7px;
+    cursor:pointer;
+}
+
+.social-media-section{
+    margin-right:30px;
+}
+.copyright-section{
+   text-align:center;
+   padding:25px;
+   color:black;
+}

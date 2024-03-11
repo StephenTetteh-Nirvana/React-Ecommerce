@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import "../css/Showcase.css"
 import Background from "../images/background.png"
 
@@ -12,7 +13,9 @@ const Showcase = () => {
                  These iconic shoes are a tribute to Nike's rich heritage, featuring a classic design that never goes out of fashion. 
                  </p>
                 <div>
-                  <button>Explore More</button>
+                  <Link to="/products">
+                   <button>Explore More</button> 
+                  </Link>
                 </div>
           </div>
 

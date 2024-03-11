@@ -1,0 +1,27 @@
+.product-box{
+    width:300px;
+    height:300px;
+    margin-left:10px;
+    margin-top:20px;
+    margin-bottom:45px;
+}
+.first-image-box{
+    width:100%;
+    height: 100%;
+    background-color: #eeeeee;
+    border-radius:8px;
+    cursor: pointer;
+}
+.first-image-box img{
+    width:100%;
+    height:100%;
+    mix-blend-mode: darken;
+}
+.first-image-box img:hover{
+    transform: scale(1.1);
+    transition: transform 500ms;
+}
+.product-details p{
+    font-weight:600;
+}
+
