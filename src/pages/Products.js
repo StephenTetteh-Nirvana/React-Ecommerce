@@ -3,14 +3,11 @@ import Navbar from "../components/Navbar"
 import Product from "../components/Product.jsx"
 import "../css/Products.css"
 import { db } from "../firebase.js"
-import { useEffect,useState,useContext } from "react"
-import GlobalState from "../GlobalState.js"
+import { useEffect,useState } from "react"
 
 const Products = () => {
 
   const [Allproducts,SetAllProducts] = useState([])
-
-  const { addToCart } = useContext(GlobalState)
    
    
 
@@ -41,8 +38,6 @@ const Products = () => {
             <Product key={item.id} item={item}/>
           ))
         }
-
-        <button onClick={()=>addToCart("black-shirt.jpg","Black Shirt",30.99,4)}> Update Cart</button>
         </div>
     
     </div>
