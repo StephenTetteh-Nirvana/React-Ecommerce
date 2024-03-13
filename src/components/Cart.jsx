@@ -35,7 +35,7 @@ const Cart = () => {
                         <img src={EmptyBag}/>
                       </div>
                     <h1>Your Bag is Empty</h1>
-                    <Link to="/men">
+                    <Link to="/products">
                       <button>Shop Now</button>
                     </Link>
                 </div>

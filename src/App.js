@@ -7,6 +7,10 @@ import NotFound from "./pages/NotFound.js"
 import User from "./pages/User.js"
 import Products from "./pages/Products.js"
 import Favorites from "./pages/Favorites.js"
+import ProductPage from "./pages/ProductPage.js"
+import Login from "./pages/Login.js"
+import Register from "./pages/Register.js"
+
 
 
 
@@ -19,10 +23,13 @@ function App() {
         <Route path="/about" element={<About/>}></Route>
         <Route path="/contact" element={<Contact/>}></Route>
         <Route path="/user" element={<User/>}></Route>
+        <Route path="/Login" element={<Login/>}></Route>
+        <Route path="/Register" element={<Register/>}></Route>
         <Route path="*" element={<NotFound/>}></Route>
 
         <Route path="/products" element={<Products/>}></Route>
-        <Route path="/favorite" element={<Favorites/>}></Route>
+        <Route path="/products/productPage/:id" element={<ProductPage/>}></Route>
+        <Route path="/favorites" element={<Favorites/>}></Route>
 
       </Routes>
     </div>

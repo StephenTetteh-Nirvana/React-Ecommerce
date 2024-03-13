@@ -1,40 +1,23 @@
-import { collection, getDocs } from "firebase/firestore"
 import Navbar from "../components/Navbar"
 import Product from "../components/Product.jsx"
 import "../css/Products.css"
-import { db } from "../firebase.js"
-import { useEffect,useState } from "react"
+import { useContext, useEffect } from "react"
+import GlobalState from "../GlobalState.js"
 
 const Products = () => {
+  const { fetchProducts,allProducts } = useContext(GlobalState)
 
-  const [Allproducts,SetAllProducts] = useState([])
-   
-   
+  useEffect(()=>{
+    fetchProducts()
+  },[])
 
-    const fetchProducts = async () => {
-      const colRef = collection(db, "Products");
-      const docRef = await getDocs(colRef);
-       
-      const productsFromDB = []
-
-      docRef.forEach((doc) => {
-        const productData = doc.data();
-        productsFromDB.push(productData)
-      })
-
-      SetAllProducts([...Allproducts, ...productsFromDB])  
-    }
-    
-    useEffect(() => {
-      fetchProducts();
-    }, []);
 
   return (
     <div className="products-wrapper">
       <Navbar/>
         <div className="products-container">
         {
-          Allproducts.map((item)=>(
+          allProducts.map((item)=>(
             <Product key={item.id} item={item}/>
           ))
         }
