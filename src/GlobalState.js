@@ -25,6 +25,7 @@ export const CartProvider = ({children}) =>{
                 images:doc.data().images
             }
               productsFromDB.push(productData)
+              localStorage.setItem("Products",JSON.stringify(productsFromDB))
             })
             setallProducts([...allProducts, ...productsFromDB]) 
             setloadedProducts(true) 
