@@ -1,10 +1,44 @@
 import { useState } from "react"
 import "../css/Login.css"
-import { Link } from "react-router-dom"
+import { toast } from "react-toastify"
+import { Link, useNavigate } from "react-router-dom"
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth"
+import { doc,getDoc } from "firebase/firestore"
+import { auth,db } from "../firebase.js"
+import Loader from "../components/Loader.jsx"
 
 const Login = () => {
-  const [ userName,setUserName] = useState('')
+  const [ email,setEmail] = useState('')
   const [password,setPassword] = useState('')
+  const [loading,setLoading] = useState(false)
+
+  const navigate = useNavigate()
+
+  const LoginUser = async() =>{
+    try{
+      setLoading(true)
+      await signInWithEmailAndPassword(auth,email,password)
+      onAuthStateChanged(auth,async (user)=>{
+        if(user){
+          const userDocRef = doc(db,"Users",user.uid)
+          const userDoc = await getDoc(userDocRef) 
+          if(userDoc.exists){
+            console.log(userDoc.data())
+          }
+          console.log(user)
+          toast.success("Login Successful",{
+            autoClose:1500,
+            position:"top-center"
+          })
+          navigate("/products")
+        }
+      })
+    }
+    catch(error){
+      console.log(error)
+    }
+    
+  }
   
   return (
     <div className="main">
@@ -12,9 +46,9 @@ const Login = () => {
               <h3>Sign In</h3>
 
               <input type="text" 
-              placeholder="Username" 
-              value={userName}
-              onChange={(e)=>setUserName(e.target.value)}
+              placeholder="Email" 
+              value={email}
+              onChange={(e)=>setEmail(e.target.value)}
               autoComplete="off" 
               required/>
 
@@ -24,8 +58,11 @@ const Login = () => {
               value={password}
               onChange={(e)=>setPassword(e.target.value)}
               required/>
-
-              <button className="submit-btn">Login</button>
+                { loading ? (
+                    <Loader/>
+                ) : (
+                  <button className="submit-btn" onClick={()=>LoginUser()}>Login</button> 
+                )}
               <h4>Don't Have An Account?
                 <span><Link to="/register">Register</Link></span>
               </h4>

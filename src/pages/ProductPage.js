@@ -1,30 +1,34 @@
 import { useParams } from "react-router-dom"
 import Navbar from "../components/Navbar"
 import "../css/ProductPage.css"
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import GlobalState from "../GlobalState";
 
 const ProductPage = () => {
     const allProducts = localStorage.getItem("Products") !== null ?  JSON.parse(localStorage.getItem("Products")):[];
-    
     const { id } = useParams()
     const {addToCart} = useContext(GlobalState)
+    const [currentIndex,setCurrentIndex] = useState(0)
 
-    const product = allProducts.find((p) => p.id === id);
+    const product = allProducts.find((p) => p.id === id)
 
   return (
     <div>
       <Navbar/>
       { product && (
               <div className="products-details-box">
-              <div className="image-section">
-                    <img src={require(`../images/${product.images[0]}`)}/>
+                {
+                  product.images && (
+                    <div className="image-section">
+                    <img src={require(`../images/${product.images[currentIndex]}`)}/>
                     <div className="sub-images">
-                      <img src={require(`../images/${product.images[1]}`)}/>
-                      <img src={require(`../images/${product.images[2]}`)}/>
+                      <img onClick={()=>setCurrentIndex(0)} src={require(`../images/${product.images[0]}`)}/>
+                      <img onClick={()=>setCurrentIndex(1)} src={require(`../images/${product.images[1]}`)}/>
+                      <img onClick={()=>setCurrentIndex(2)} src={require(`../images/${product.images[2]}`)}/>
                     </div>
-              </div>
-        
+                  </div>
+                )}
+             
           <div className="product-information">
             <h1>{product.name}</h1>
             <p className="product-description">

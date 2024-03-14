@@ -17,8 +17,7 @@ const Cart = () => {
   const { cart } = useContext(GlobalState) 
 
   const toggleClose = () =>{
-    setCloseCart(!closeCart)  
-  
+    setCloseCart(!closeCart)
   }
   return (
     <div className={`wrapper ${closeCart ? "closed" : ''}`}>

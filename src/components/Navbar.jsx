@@ -13,14 +13,13 @@ const Navbar = () => {
   const [mobileDisplay,setMobileDisplay] = useState(false);
   const [displayCart,setDisplayCart] = useState(false)
 
-  const toggleCart = () =>{
-    setDisplayCart(!displayCart)
-  }
-
-  useEffect(() => {
-  }, [displayCart]);
 
   const { cart } = useContext(GlobalState)
+
+  const toggleCart = () =>{
+     setDisplayCart(!displayCart)
+  }
+
 
   return (
     <div className='nav-container'>
@@ -32,12 +31,17 @@ const Navbar = () => {
         </div>
 
         <div className="user-section">
-          <div onClick={toggleCart} className="cart-box">
-              <img src={ShoppingBag} alt="user"/>
+          <div className="cart-box">
+              <img  onClick={()=>toggleCart()} src={ShoppingBag} alt="user"/>
               <span>{cart.length}</span>
           </div>
           
-          {displayCart && <Cart/>}
+          { displayCart ? (
+                <Cart/>
+          ) : (
+               <h1>False</h1>
+          )
+        }
 
           <div className="favorites-box">
             <Link to="/favorites">

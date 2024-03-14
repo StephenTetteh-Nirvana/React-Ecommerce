@@ -15,10 +15,6 @@ const Footer = () => {
             <input type="text" placeholder="Enter Your Email..."/>
             <button>Subscribe</button>
         </div>
-
-        <div className="social-media-section">
-          <h2>FOLLOW US</h2>
-        </div>
     </div>
 
     <div className="copyright-section">

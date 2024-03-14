@@ -1,4 +1,4 @@
-import { createContext,useState,useEffect } from "react"
+import { createContext,useState } from "react"
 import { db } from "./firebase.js"
 import { collection, getDocs } from "firebase/firestore"
 
@@ -16,7 +16,6 @@ export const CartProvider = ({children}) =>{
             const docRef = await getDocs(colRef);
 
             const productsFromDB = []
-
             docRef.forEach((doc) => {
               const productData = {
                 id:doc.id,
