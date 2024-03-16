@@ -10,7 +10,7 @@ export const CartProvider = ({children}) =>{
   
 
      const [cart,setCart] = useState([])
-     const [favorite,setFavorite] = useState([])
+     const [favorites,setFavorites] = useState([])
      const [allProducts,setallProducts] = useState([])
      const [loadedProducts,setloadedProducts] = useState(false)
      const [addToCartLoader,setaddToCartLoader] = useState(false)
@@ -79,8 +79,6 @@ export const CartProvider = ({children}) =>{
                   }
                   favoriteData.push(newFavorite)
                   await updateDoc(userDocRef,{favorites: favoriteData})
-                  setCart([...favorite,{favoriteData}])
-                  console.log(favorite)
                   setaddToCartLoader(false)
                   toast.success("Added To Favorites")
               }
@@ -88,9 +86,30 @@ export const CartProvider = ({children}) =>{
           })
         }catch(error){
           console.log(error)
+        } 
+      }
+
+      const fetchFavorites = () =>{
+        try{
+          onAuthStateChanged(auth,async(user)=>{
+            if(user){
+              const uid = user.uid;
+              const userdocRef = doc(db,"Users",uid)
+              const userDoc = await getDoc(userdocRef)
+
+              if(userDoc.exists()){
+                const favoritesArray = userDoc.data().favorites;
+                setFavorites([...favoritesArray])
+                localStorage.setItem("favorites",JSON.stringify(favoritesArray))
+                console.log("Favorite Array:",favorites)
+              }
+            }
+          })
+
+        }catch(error){
+            console.log(error)
         }
-         
-       }
+      }
 
      
      const addToCart = (id,image,name,price,quantity) => {
@@ -121,11 +140,12 @@ export const CartProvider = ({children}) =>{
             }
           }
         })
-      }catch(error){
+      }
+      catch(error){
+        setaddToCartLoader(false)
         console.log(error)
       }
-       
-     }
+    }
 
      const increaseQuantity = (productId) => {
       onAuthStateChanged(auth,async (user)=>{
@@ -148,7 +168,7 @@ export const CartProvider = ({children}) =>{
     }
 
     return(
-        <GlobalState.Provider value={{cart,addToCart,addToFavorites,fetchProducts,fetchCurrentUserCartData,increaseQuantity,allProducts,addToCartLoader}}>
+        <GlobalState.Provider value={{cart,addToCart,addToFavorites,fetchFavorites,fetchProducts,fetchCurrentUserCartData,increaseQuantity,allProducts,addToCartLoader}}>
             {children}
         </GlobalState.Provider>
     )

@@ -1,0 +1,49 @@
+.favorite-product-box{
+    width:250px;
+    height: 330px;
+    margin-left:10px;
+}
+.product-image-box{
+    width:250px;
+    height: 250px;
+    background-color: #eeeeee;
+    border-radius:8px;
+}
+
+.product-image-box img{
+    width:100%;
+    height:100%;
+    mix-blend-mode: multiply;
+}
+
+.product-info{
+    display:flex;
+    justify-content: space-between;
+    margin-top:6px;
+}
+.product-info .name{
+    margin-left: 5px;
+}
+.product-info .price{
+    margin-right: 5px;
+}
+.product-buttons-box{
+    display: flex;
+    justify-content: space-between;
+}
+.remove-btn{
+    padding:8px 15px;
+    background: transparent;
+    color:white;
+    cursor: pointer;
+    background-color:#000;
+    border:none;
+    margin-left:5px;
+}
+
+.remove-btn:hover{
+    background: transparent;
+    border:1px solid black;
+    transition: background 300ms;
+    color:black;
+}

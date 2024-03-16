@@ -1,4 +1,12 @@
 .favorites-container{
+    padding-top:20px;
+    padding-left:10px;
+    display:flex;
+    flex-wrap:wrap;
+    min-height:100vh;
+}
+
+.favorites-content-box{
     position: absolute;
     top:50%;
     left:50%;
