@@ -58,6 +58,10 @@
 .favorites-box{
     margin-right:7px;
 }
+.currentUser-info span{
+    color:white;
+    text-decoration: none;
+}
 .hamburger-container{
     display:none;
 }

@@ -18,7 +18,7 @@ const Navbar = () => {
   const [userObj,setuserObj] = useState([])
 
   const cart = JSON.parse(localStorage.getItem("cart"))
-  const {fetchCurrentUserData } = useContext(GlobalState)
+  const {fetchCurrentUserCartData } = useContext(GlobalState)
 
   const toggleCart = () =>{
      setDisplayCart(!displayCart)
@@ -47,7 +47,7 @@ const Navbar = () => {
 
   useEffect(()=>{
     fetchCurrentUser()
-    fetchCurrentUserData()
+    fetchCurrentUserCartData()
   },[])
 
   return (
@@ -62,7 +62,7 @@ const Navbar = () => {
 
         <div className="user-section">
           <div className="cart-box">
-              <img  onClick={()=>toggleCart()} src={ShoppingBag} alt="user"/>
+              <img onClick={()=>toggleCart()} src={ShoppingBag} alt="user"/>
               <span>{cart.length}</span>
           </div>
           
@@ -79,7 +79,7 @@ const Navbar = () => {
             </Link>
           </div>
 
-          <div>
+          <div className="currentUser-info">
             <Link to="/user">
               <img src={User} alt="user"/>
               { userObj ? (

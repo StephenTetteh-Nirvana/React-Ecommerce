@@ -9,6 +9,7 @@ const GlobalState = createContext();
 export const CartProvider = ({children}) =>{
 
      const [cart,setCart] = useState([])
+     const [favorite,setFavorite] = useState([])
      const [allProducts,setallProducts] = useState([])
      const [loadedProducts,setloadedProducts] = useState(false)
 
@@ -35,7 +36,7 @@ export const CartProvider = ({children}) =>{
         }
       }
 
-      const fetchCurrentUserData = () =>{
+      const fetchCurrentUserCartData = () =>{
           onAuthStateChanged(auth,async (user)=>{
             if(user){
               try{
@@ -57,8 +58,38 @@ export const CartProvider = ({children}) =>{
           })
       }
 
+      const addToFavorites = (id,image,name,price) => {
+        try{
+          onAuthStateChanged(auth,async (user)=>{
+            if(user){
+              const uid = user.uid;
+              const userDocRef = doc(db,"Users",uid)
+              const userDoc = await getDoc(userDocRef)
+              
+              if(userDoc.exists()){
+                const favoriteData = userDoc.data().favorites;
+                  const newFavorite = {
+                    id:id,
+                    image:image,
+                    name:name,
+                    price:price,
+                  }
+                  favoriteData.push(newFavorite)
+                  await updateDoc(userDocRef,{favorite: favoriteData})
+                  setCart([...favorite,{favoriteData}])
+                  console.log(favorite)
+                  toast.success("Added To Favorites")
+              }
+            }
+          })
+        }catch(error){
+          console.log(error)
+        }
+         
+       }
+
      
-     const addToCart = (image,name,price,quantity) => {
+     const addToCart = (id,image,name,price,quantity) => {
       try{
         onAuthStateChanged(auth,async (user)=>{
           if(user){
@@ -80,10 +111,8 @@ export const CartProvider = ({children}) =>{
                 setCart([...cart,{cartData}])
                 console.log(cart)
                 toast.success("Item Added Successfully")
-                fetchCurrentUserData()
+                fetchCurrentUserCartData()
             }
-          
-            
           }
         })
       }catch(error){
@@ -113,7 +142,7 @@ export const CartProvider = ({children}) =>{
     }
 
     return(
-        <GlobalState.Provider value={{cart,addToCart,fetchProducts,fetchCurrentUserData,increaseQuantity,allProducts}}>
+        <GlobalState.Provider value={{cart,addToCart,addToFavorites,fetchProducts,fetchCurrentUserCartData,increaseQuantity,allProducts}}>
             {children}
         </GlobalState.Provider>
     )
