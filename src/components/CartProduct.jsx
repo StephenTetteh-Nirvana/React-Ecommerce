@@ -13,7 +13,9 @@ const CartProduct = ({item}) => {
                         <p className="product-name">{item.name}</p>
                         <div className="quantity-box">
                             <button className="minus-button">-</button>
-                            <input type="number" value="1"/>
+                            <input type="number" 
+                            value={item.quantity}
+                            onChange={()=>(console.log("quantity"))}/>
                             <button className="plus-button">+</button>
                         </div>
                     </div>

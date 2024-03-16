@@ -75,3 +75,19 @@
 .delete-btn{
     cursor: pointer;
 }
+.checkout-btn{
+    padding:10px 45px;
+    background:#000;
+    color:#FFFFFFFF;
+    border:none;
+    bottom:10px;
+    left:0px;
+}
+
+.checkout-btn:hover{
+    background: transparent;
+    border:1px solid black;
+    color:black;
+    cursor: pointer;
+    transition: background-color 300ms;
+}

@@ -1,24 +1,23 @@
 import "../css/Cart.css"
-import {Link} from "react-router-dom"
 import {useState} from "react"
-import EmptyBag from "../images/empty-bag.png"
 import CloseCart from "../images/close-cart.png"
-import {useContext} from "react"
-import GlobalState from "../GlobalState.js"
-import CartProduct from "../components/CartProduct"
+import {Link} from "react-router-dom"
+import EmptyBag from "../images/empty-bag.png"
+import CartProduct from "../components/CartProduct.jsx"
 
 
 
 const Cart = () => {
   const [closeCart,setCloseCart] = useState(false)
 
-  const src = "background.jpg"
-
-  const { cart } = useContext(GlobalState) 
+  const cart = JSON.parse(localStorage.getItem("cart"))
 
   const toggleClose = () =>{
     setCloseCart(!closeCart)
   }
+
+
+
   return (
     <div className={`wrapper ${closeCart ? "closed" : ''}`}>
       <div className="close-cart-box" onClick={toggleClose}>
@@ -40,10 +39,14 @@ const Cart = () => {
                 </div>
                 ) : ( 
                     cart.map((item)=>(
-                      <CartProduct item={item}></CartProduct>
+                      <CartProduct key={item.name} item={item}></CartProduct>
                     ))
                 )
             }
+
+          <button className="checkout-btn">PROCEED TO CHECKOUT</button>
+          
+
       </div>
       
     </div>

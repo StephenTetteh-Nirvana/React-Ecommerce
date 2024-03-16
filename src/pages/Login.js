@@ -15,6 +15,12 @@ const Login = () => {
   const navigate = useNavigate()
 
   const LoginUser = async() =>{
+    if(email === "" && password === "" ){
+      toast.error("Complete the form",{
+        autoClose:1500,
+        position:"top-center"
+      })
+    }else{
     try{
       setLoading(true)
       await signInWithEmailAndPassword(auth,email,password)
@@ -25,20 +31,56 @@ const Login = () => {
           if(userDoc.exists){
             console.log(userDoc.data())
           }
-          console.log(user)
           toast.success("Login Successful",{
             autoClose:1500,
             position:"top-center"
           })
+          setEmail('')
+          setPassword('')
           navigate("/products")
         }
       })
     }
     catch(error){
       console.log(error)
-    }
+      setLoading(false)
+      if (error.code === 'auth/invalid-email') {
+        toast.error("Invalid Email",{
+          autoClose:2000,
+          position:"top-center"
+        })
+      }else if (error.code === 'auth/invalid-credential') {
+          toast.error("Invalid Credentials",{
+            autoClose:2000,
+            position:"top-center"
+          })
+        } else if (error.code === 'auth/wrong-password') {
+          toast.error("Incorrect Password",{
+            autoClose:2000,
+            position:"top-center"
+          })
+        } else if (error.code === 'auth/user-not-found') {
+          toast.error("No User Was Found",{
+            autoClose:2000,
+            position:"top-center"
+          })
+          }else if (error.code === 'auth/weak-password') {
+          toast.error("Password should be atleast 6 characters",{
+            autoClose:2000,
+            position:"top-center"
+          })
+        }
+        else {
+          (error.code==='auth/network-request-failed')
+          toast.error("Please check your internet connection",{
+            autoClose:2000,
+            position:"top-center"
+          })
+        }
     
   }
+}
+}
   
   return (
     <div className="main">
@@ -71,5 +113,6 @@ const Login = () => {
     </div>
   )
 }
+
 
 export default Login

@@ -5,12 +5,30 @@ import { useContext, useState } from "react";
 import GlobalState from "../GlobalState";
 
 const ProductPage = () => {
-    const allProducts = localStorage.getItem("Products") !== null ?  JSON.parse(localStorage.getItem("Products")):[];
     const { id } = useParams()
+    const allProducts = localStorage.getItem("Products") !== null ?  JSON.parse(localStorage.getItem("Products")):[];
+    const product = allProducts.find((p) => p.id === id)
+
     const {addToCart} = useContext(GlobalState)
     const [currentIndex,setCurrentIndex] = useState(0)
+    const [quantity,setQuantity] = useState(1)
 
-    const product = allProducts.find((p) => p.id === id)
+    const increaseQuantityValue = () =>{
+      let newQuantity = quantity + 1;
+      setQuantity(newQuantity)
+    }
+
+    const decreaseQuantityValue = () =>{
+      if(quantity === 1 ){
+       console.log("cant subtract")
+      }else{
+        let newQuantity = quantity - 1;
+        setQuantity(newQuantity)
+      }
+     
+    }
+
+    
 
   return (
     <div>
@@ -40,11 +58,22 @@ const ProductPage = () => {
             <h1 className="product-price">${product.price}.00</h1>
   
             <div className="product-info-section-two">
+              
+              <div className="quantity-box">
               <label className="quantity-heading">Quantity:</label><br/>
-              <button className="quantity-minus-button">-</button>
-              <input type="text" value="1"/>
-              <button className="quantity-plus-button">+</button>
-              <button className="add-btn" onClick={()=>addToCart(product.images[0],product.name,product.price)}>Add To Cart</button>
+              <button className="quantity-minus-button"  onClick={()=>decreaseQuantityValue()}>-</button>
+              <input type="text" 
+              value={quantity}
+              onChange={(e)=>setQuantity(e.target.value)}
+              />
+              <button className="quantity-plus-button" onClick={()=>increaseQuantityValue()}>+</button>
+              </div>
+
+              <div className="buttons-box">
+              <button className="favorites-btn">Add To Favorites</button>
+              <button className="add-btn" onClick={()=>addToCart(product.images[0],product.name,product.price,quantity)}>Add To Cart</button>
+              </div>
+             
             </div>
           </div>
   

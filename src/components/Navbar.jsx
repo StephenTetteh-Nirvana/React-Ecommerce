@@ -8,20 +8,50 @@ import {Link} from "react-router-dom"
 import MobileNavigations from "../components/MobileNavigations.jsx"
 import Cart from "../components/Cart.jsx"
 import GlobalState from "../GlobalState.js"
+import { db,auth } from "../firebase.js"
+import { doc, getDoc } from "firebase/firestore"
+import { onAuthStateChanged } from "firebase/auth";
 
 const Navbar = () => {
   const [mobileDisplay,setMobileDisplay] = useState(false);
   const [displayCart,setDisplayCart] = useState(false)
+  const [userObj,setuserObj] = useState([])
 
-
-  const { cart } = useContext(GlobalState)
+  const cart = JSON.parse(localStorage.getItem("cart"))
+  const {fetchCurrentUserData } = useContext(GlobalState)
 
   const toggleCart = () =>{
      setDisplayCart(!displayCart)
   }
 
+  const fetchCurrentUser = () =>{
+    onAuthStateChanged(auth,async (user)=>{
+     if(user){
+       try{
+         const uid = user.uid;
+         const colRef = doc(db,"Users",uid)
+         const userDoc = await getDoc(colRef)
+         if(userDoc.exists){
+             const userData = userDoc.data();
+             setuserObj(userData)
+           }else{
+             console.log("document not recieved in time ")
+           }
+       }
+       catch(error){
+          console.log(error)
+       }
+   }
+    })
+}
+
+  useEffect(()=>{
+    fetchCurrentUser()
+    fetchCurrentUserData()
+  },[])
 
   return (
+  
     <div className='nav-container'>
         <div className="first-section">
           <Link to="/">
@@ -52,6 +82,7 @@ const Navbar = () => {
           <div>
             <Link to="/user">
               <img src={User} alt="user"/>
+              <span>{`Hi ${userObj.userName}`}</span>
             </Link>
           </div>
          

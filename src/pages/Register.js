@@ -52,18 +52,52 @@ const Register = () => {
             setPassword('')
             setPasswordConfirm('')
           })
-        
         }
         catch(error){
-         console.log(error)
-        }
-      }else{
-        toast.error("Passwords don't match",{
-          autoClose:2500,
-          position:"top-center"
-        })
-      }  
-  }
+          console.log(error)
+            setLoading(false)
+            if (error.code === 'auth/invalid-email') {
+              toast.error("Invalid Email",{
+                autoClose:2000,
+                position:"top-center"
+              })
+            }else if (error.code === 'auth/invalid-credential') {
+                toast.error("Invalid Credentials",{
+                  autoClose:2000,
+                  position:"top-center"
+                })
+              } else if (error.code === 'auth/wrong-password') {
+                toast.error("Incorrect Password",{
+                  autoClose:2000,
+                  position:"top-center"
+                })
+              }
+              else if (error.code === 'auth/email-already-exists') {
+                toast.error("Email Already Exists",{
+                  autoClose:2000,
+                  position:"top-center"
+                })
+                }else if (error.code === 'auth/weak-password') {
+                toast.error("Password should be atleast 6 characters",{
+                  autoClose:2000,
+                  position:"top-center"
+                })
+              }
+              else{
+                (error.code==='auth/network-request-failed') 
+                toast.error("Please check your internet connection",{
+                  autoClose:2000,
+                  position:"top-center"
+                })
+              }
+        } 
+     }else{
+      toast.error("Passwords don't match",{
+        autoClose:1500,
+        position:"top-center"
+      })
+     }
+}
 }
 
 
@@ -113,5 +147,4 @@ const Register = () => {
     </div>
   )
 }
-
 export default Register

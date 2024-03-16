@@ -38,6 +38,8 @@
 }
 .product-info-section-two{
     margin-top:50px;
+    display:flex;
+    flex-direction: column;
 }
 .quantity-heading{
     font-weight:700;
@@ -46,6 +48,7 @@
     padding:8px;
     border:1px solid grey;
     background: transparent;
+    cursor: pointer;
 }
 .product-info-section-two input[type="text"]{
     padding:8px;
@@ -59,6 +62,22 @@
     padding:8px;
     border:1px solid grey;
     background: transparent;
+    cursor: pointer;
+}
+.buttons-box{
+    margin-top:20px;
+}
+.favorites-btn{
+    padding:10px 40px;
+    border:1px solid grey;
+    color:black;
+    cursor:pointer;
+    background:transparent;
+}
+.favorites-btn:hover{
+    border:1px solid red;
+    transform:scale(1.1);
+    transition:transform 500ms;
 }
 .add-btn{
     padding:10px 40px;
