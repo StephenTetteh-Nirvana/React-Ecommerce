@@ -6,7 +6,7 @@ import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/aut
 import { collection,doc,setDoc } from "firebase/firestore"
 import "../css/Register.css"
 import { toast } from "react-toastify"
-import Loader from "../components/Loader.jsx"
+import CartLoader from "../components/CartLoader.jsx"
 
 
 const Register = () => {
@@ -133,17 +133,18 @@ const Register = () => {
           value={passwordConfirm}
           onChange={(e)=>setPasswordConfirm(e.target.value)}
           required/>
-          
-          { loading ? (
-            <Loader/>
-          ) : (
-            <button className="register-btn" onClick={()=>RegisterUser()}>Register</button>
-          )}
-          
+          <button className="register-btn" onClick={()=>RegisterUser()}>Register</button>
           <h4>Already Have An Account?
           <span><Link to="/login">Login</Link></span>
           </h4>
         </form>
+
+        { loading ? (
+                    <CartLoader/>
+                ) : (
+                  console.log("error")
+                )}
+
     </div>
   )
 }

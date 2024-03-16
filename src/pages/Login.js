@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth"
 import { doc,getDoc } from "firebase/firestore"
 import { auth,db } from "../firebase.js"
-import Loader from "../components/Loader.jsx"
+import CartLoader from "../components/CartLoader.jsx"
 
 const Login = () => {
   const [ email,setEmail] = useState('')
@@ -100,16 +100,17 @@ const Login = () => {
               value={password}
               onChange={(e)=>setPassword(e.target.value)}
               required/>
-                { loading ? (
-                    <Loader/>
-                ) : (
-                  <button className="submit-btn" onClick={()=>LoginUser()}>Login</button> 
-                )}
+              <button className="submit-btn" onClick={()=>LoginUser()}>Login</button> 
               <h4>Don't Have An Account?
                 <span><Link to="/register">Register</Link></span>
               </h4>
-
             </form>
+
+            { loading ? (
+                    <CartLoader/>
+                ) : (
+                  console.log("error")
+                )}
     </div>
   )
 }

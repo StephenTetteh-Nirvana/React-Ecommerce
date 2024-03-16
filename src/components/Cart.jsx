@@ -46,8 +46,6 @@ const Cart = () => {
             }
 
           <button className="checkout-btn">PROCEED TO CHECKOUT</button>
-          
-
       </div>
     </div>
   </div>
