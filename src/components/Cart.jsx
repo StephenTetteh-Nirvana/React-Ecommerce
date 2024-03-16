@@ -19,6 +19,7 @@ const Cart = () => {
 
 
   return (
+  <div className={`cart-outer-wrapper ${closeCart ? "closed" : ''}`}>
     <div className={`wrapper ${closeCart ? "closed" : ''}`}>
       <div className="close-cart-box" onClick={toggleClose}>
         <img src={CloseCart}/>
@@ -48,8 +49,8 @@ const Cart = () => {
           
 
       </div>
-      
     </div>
+  </div>
   )
 }
 

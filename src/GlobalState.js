@@ -7,11 +7,13 @@ import { onAuthStateChanged } from "firebase/auth";
 const GlobalState = createContext();
 
 export const CartProvider = ({children}) =>{
+  
 
      const [cart,setCart] = useState([])
      const [favorite,setFavorite] = useState([])
      const [allProducts,setallProducts] = useState([])
      const [loadedProducts,setloadedProducts] = useState(false)
+     const [addToCartLoader,setaddToCartLoader] = useState(false)
 
      const fetchProducts = async () => {
         if(!loadedProducts){
@@ -60,6 +62,7 @@ export const CartProvider = ({children}) =>{
 
       const addToFavorites = (id,image,name,price) => {
         try{
+          setaddToCartLoader(true)
           onAuthStateChanged(auth,async (user)=>{
             if(user){
               const uid = user.uid;
@@ -75,9 +78,10 @@ export const CartProvider = ({children}) =>{
                     price:price,
                   }
                   favoriteData.push(newFavorite)
-                  await updateDoc(userDocRef,{favorite: favoriteData})
+                  await updateDoc(userDocRef,{favorites: favoriteData})
                   setCart([...favorite,{favoriteData}])
                   console.log(favorite)
+                  setaddToCartLoader(false)
                   toast.success("Added To Favorites")
               }
             }
@@ -91,6 +95,7 @@ export const CartProvider = ({children}) =>{
      
      const addToCart = (id,image,name,price,quantity) => {
       try{
+        setaddToCartLoader(true)
         onAuthStateChanged(auth,async (user)=>{
           if(user){
             const uid = user.uid;
@@ -110,6 +115,7 @@ export const CartProvider = ({children}) =>{
                 await updateDoc(userDocRef,{cart: cartData})
                 setCart([...cart,{cartData}])
                 console.log(cart)
+                setaddToCartLoader(false)
                 toast.success("Item Added Successfully")
                 fetchCurrentUserCartData()
             }
@@ -142,7 +148,7 @@ export const CartProvider = ({children}) =>{
     }
 
     return(
-        <GlobalState.Provider value={{cart,addToCart,addToFavorites,fetchProducts,fetchCurrentUserCartData,increaseQuantity,allProducts}}>
+        <GlobalState.Provider value={{cart,addToCart,addToFavorites,fetchProducts,fetchCurrentUserCartData,increaseQuantity,allProducts,addToCartLoader}}>
             {children}
         </GlobalState.Provider>
     )

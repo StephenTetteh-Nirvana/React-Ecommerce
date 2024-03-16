@@ -1,0 +1,24 @@
+.favorites-container{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+.img-box{
+    margin-left:100px;
+}
+.add-favorites-btn{
+    padding:10px 45px;
+    background:#000;
+    color:#FFFFFFFF;
+    border:none;
+    margin:10px 70px;
+}
+
+.add-favorites-btn:hover{
+    background: transparent;
+    border:1px solid black;
+    color:black;
+    cursor: pointer;
+    transition: background-color 300ms;
+}
