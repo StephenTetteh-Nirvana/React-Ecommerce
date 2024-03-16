@@ -82,7 +82,11 @@ const Navbar = () => {
           <div>
             <Link to="/user">
               <img src={User} alt="user"/>
-              <span>{`Hi ${userObj.userName}`}</span>
+              { userObj ? (
+               <span>Hi {userObj.userName}</span>
+              ) : (
+                <span></span>
+              )}
             </Link>
           </div>
          

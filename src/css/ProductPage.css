@@ -79,6 +79,13 @@
     transform:scale(1.1);
     transition:transform 500ms;
 }
+.existing-product-btn{
+    padding:10px 40px;
+    background-color: #000;
+    color:#FFFFFF;
+    border:none;
+    margin-left:15px;
+}
 .add-btn{
     padding:10px 40px;
     background-color: red;

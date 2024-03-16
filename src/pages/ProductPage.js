@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom"
 import Navbar from "../components/Navbar"
 import "../css/ProductPage.css"
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import GlobalState from "../GlobalState";
 
 const ProductPage = () => {
@@ -9,9 +9,24 @@ const ProductPage = () => {
     const allProducts = localStorage.getItem("Products") !== null ?  JSON.parse(localStorage.getItem("Products")):[];
     const product = allProducts.find((p) => p.id === id)
 
-    const {addToCart} = useContext(GlobalState)
+    const {addToCart,cart} = useContext(GlobalState)
     const [currentIndex,setCurrentIndex] = useState(0)
     const [quantity,setQuantity] = useState(1)
+    const [ExistingProduct,setExistingProduct] = useState(false)
+
+    const existingProduct = () =>{
+        const alreadyAddedProduct = cart.find((p)=> p.id === product.id)
+        if(alreadyAddedProduct){
+          console.log("already exists",product)
+          setExistingProduct(true)
+        }else{
+          console.log("no item found")
+        }
+    }
+
+    useEffect(()=>{
+      existingProduct()
+    })
 
     const increaseQuantityValue = () =>{
       let newQuantity = quantity + 1;
@@ -71,7 +86,15 @@ const ProductPage = () => {
 
               <div className="buttons-box">
               <button className="favorites-btn">Add To Favorites</button>
-              <button className="add-btn" onClick={()=>addToCart(product.images[0],product.name,product.price,quantity)}>Add To Cart</button>
+
+              { ExistingProduct ? (
+                <button className="existing-product-btn">Already In Bag</button>
+              ) : (
+                <button className="add-btn" onClick={()=>addToCart(product.images[0],product.name,product.price,quantity)}>Add To Cart</button>
+              )
+                 
+              }
+              
               </div>
              
             </div>

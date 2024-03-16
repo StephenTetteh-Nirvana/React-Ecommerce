@@ -46,8 +46,8 @@ export const CartProvider = ({children}) =>{
                 if(userDoc.exists()){
                   const cartData = userDoc.data().cart;
                   setCart([...cartData])
-                  console.log("Cart Array:",cart)
                   localStorage.setItem("cart",JSON.stringify(cartData))
+                  console.log("Cart Array:",cart)
                 }
               }
               catch(error){
@@ -58,7 +58,8 @@ export const CartProvider = ({children}) =>{
       }
 
      
-     const addToCart = (image,name,price,quantity) =>{
+     const addToCart = (image,name,price,quantity) => {
+      try{
         onAuthStateChanged(auth,async (user)=>{
           if(user){
             const uid = user.uid;
@@ -67,24 +68,28 @@ export const CartProvider = ({children}) =>{
             
             if(userDoc.exists()){
               const cartData = userDoc.data().cart;
-              const newItem = {
-                image:image,
-                name:name,
-                price:price,
-                quantity:quantity
-              }
-              cartData.push(newItem)
-              console.log(cartData)
-              await updateDoc(userDocRef,{cart: cartData})
-              setCart([...cart,{cartData}])
-              console.log(cart)
-              toast.success("Item Added Successfully")
-              fetchCurrentUserData()
+                const newItem = {
+                  id:id,
+                  image:image,
+                  name:name,
+                  price:price,
+                  quantity:quantity
+                }
+                cartData.push(newItem)
+                await updateDoc(userDocRef,{cart: cartData})
+                setCart([...cart,{cartData}])
+                console.log(cart)
+                toast.success("Item Added Successfully")
+                fetchCurrentUserData()
             }
           
             
           }
         })
+      }catch(error){
+        console.log(error)
+      }
+       
      }
 
      const increaseQuantity = (productId) => {
