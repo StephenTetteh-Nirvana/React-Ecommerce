@@ -7,7 +7,7 @@ import FavoriteProduct from "../components/FavoriteProduct.jsx"
 import "../css/Favorites.css"
 
 const Favorites = () => {
-  const favorites = JSON.parse(localStorage.getItem("favorites"))
+  const favorites = localStorage.getItem("favorites") !== null ?  JSON.parse(localStorage.getItem("favorites")) : [];
   const { fetchFavorites } = useContext(GlobalState)
 
   useEffect(()=>{
@@ -17,6 +17,7 @@ const Favorites = () => {
   return (
     <div>
       <Navbar/>
+      <h1>Favorites List</h1>
       <div className="favorites-container">
         { favorites.length == 0 ? (
             <div className="favorites-content-box">

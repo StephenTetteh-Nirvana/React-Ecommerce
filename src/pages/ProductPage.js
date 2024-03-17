@@ -1,7 +1,8 @@
-import { useParams } from "react-router-dom"
+import { useParams,Link } from "react-router-dom"
 import Navbar from "../components/Navbar"
 import CartLoader from "../components/CartLoader";
 import "../css/ProductPage.css"
+import Liked from "../images/product-favorite-red.png"
 import { useContext, useEffect, useState } from "react";
 import GlobalState from "../GlobalState";
 
@@ -10,10 +11,11 @@ const ProductPage = () => {
     const allProducts = localStorage.getItem("Products") !== null ?  JSON.parse(localStorage.getItem("Products")):[];
     const product = allProducts.find((p) => p.id === id)
 
-    const {cart,addToFavorites,addToCart,addToCartLoader} = useContext(GlobalState)
+    const {cart,favorites,addToFavorites,addToCart,addToCartLoader} = useContext(GlobalState)
     const [currentIndex,setCurrentIndex] = useState(0)
     const [quantity,setQuantity] = useState(1)
     const [ExistingProduct,setExistingProduct] = useState(false) 
+    const [LikedProduct,setLikedProduct] = useState(false)
 
     const existingProduct = () =>{
         const alreadyAddedProduct = cart.find((p)=> p.id === product.id)
@@ -25,9 +27,15 @@ const ProductPage = () => {
         }
     }
 
-    useEffect(()=>{
-      existingProduct()
-    })
+    const existingFavoriteProduct = () =>{
+      const alreadyLikedProduct = favorites.find((p)=> p.id === product.id)
+      if(alreadyLikedProduct){
+        console.log("Product already liked",product)
+        setLikedProduct(true)
+      }else{
+        console.log("Product was not found in favorites")
+      }
+  }
 
     const increaseQuantityValue = () =>{
       let newQuantity = quantity + 1;
@@ -41,10 +49,12 @@ const ProductPage = () => {
         let newQuantity = quantity - 1;
         setQuantity(newQuantity)
       }
-     
     }
 
-    
+    useEffect(()=>{
+      existingProduct()
+      existingFavoriteProduct()
+    })   
 
   return (
     <div>
@@ -86,7 +96,15 @@ const ProductPage = () => {
               </div>
 
               <div className="buttons-box">
-              <button className="favorites-btn" onClick={()=>addToFavorites(product.id,product.images[0],product.name,product.price,quantity)}>Add To Favorites</button>
+                { LikedProduct ? (
+                  <Link to="/favorites">
+                    <button className="existing-favorites-btn">Already Liked<span className="favorite-icon-box"><img src={Liked}/></span></button>
+                  </Link>
+                 
+                ) : (
+                  <button className="favorites-btn" onClick={()=>addToFavorites(product.id,product.images[0],product.name,product.price,quantity)}>Add To Favorites</button>
+                )}
+           
 
               { ExistingProduct ? (
                 <button className="existing-product-btn">Already In Bag</button>

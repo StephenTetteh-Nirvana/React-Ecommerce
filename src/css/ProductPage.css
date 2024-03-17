@@ -67,6 +67,23 @@
 .buttons-box{
     margin-top:20px;
 }
+.existing-favorites-btn{
+    padding:10px 40px;
+    border:1px solid grey;
+    color:black;
+    cursor:pointer;
+    background:transparent;
+    position: relative;
+}
+.favorite-icon-box{
+    margin-left:6px;
+}
+.favorite-icon-box img{
+    width:25px;
+    height:25px;
+    position: absolute;
+    top:6px;
+}
 .favorites-btn{
     padding:10px 40px;
     border:1px solid grey;

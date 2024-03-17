@@ -48,8 +48,11 @@ export const CartProvider = ({children}) =>{
                 
                 if(userDoc.exists()){
                   const cartData = userDoc.data().cart;
+                  const favoriteData = userDoc.data().favorites;
                   setCart([...cartData])
+                  setFavorites([...favoriteData])
                   localStorage.setItem("cart",JSON.stringify(cartData))
+                  localStorage.setItem("favorites",JSON.stringify(favoriteData))
                   console.log("Cart Array:",cart)
                 }
               }
@@ -61,10 +64,10 @@ export const CartProvider = ({children}) =>{
       }
 
       const addToFavorites = (id,image,name,price) => {
-        try{
-          setaddToCartLoader(true)
           onAuthStateChanged(auth,async (user)=>{
             if(user){
+              try{
+              setaddToCartLoader(true)
               const uid = user.uid;
               const userDocRef = doc(db,"Users",uid)
               const userDoc = await getDoc(userDocRef)
@@ -81,18 +84,24 @@ export const CartProvider = ({children}) =>{
                   await updateDoc(userDocRef,{favorites: favoriteData})
                   setaddToCartLoader(false)
                   toast.success("Added To Favorites")
+                  fetchCurrentUserCartData()
               }
-            }
-          })
-        }catch(error){
-          console.log(error)
-        } 
-      }
+            }catch(error){
+             setaddToCartLoader(false)
+             toast.error("Oops...An error occurred",{
+              autoClose:2000,
+              position:"top-center"
+             })
+             console.log(error)
+            } 
+          }
+      })
+    }
 
       const fetchFavorites = () =>{
-        try{
           onAuthStateChanged(auth,async(user)=>{
             if(user){
+              try{
               const uid = user.uid;
               const userdocRef = doc(db,"Users",uid)
               const userDoc = await getDoc(userdocRef)
@@ -103,20 +112,19 @@ export const CartProvider = ({children}) =>{
                 localStorage.setItem("favorites",JSON.stringify(favoritesArray))
                 console.log("Favorite Array:",favorites)
               }
-            }
-          })
-
-        }catch(error){
-            console.log(error)
+            }catch(error){
+              console.log(error)
+          }
         }
-      }
+        })
+}
 
      
      const addToCart = (id,image,name,price,quantity) => {
-      try{
-        setaddToCartLoader(true)
         onAuthStateChanged(auth,async (user)=>{
-          if(user){
+          try{
+            setaddToCartLoader(true)
+            if(user){
             const uid = user.uid;
             const userDocRef = doc(db,"Users",uid)
             const userDoc = await getDoc(userDocRef)
@@ -139,13 +147,16 @@ export const CartProvider = ({children}) =>{
                 fetchCurrentUserCartData()
             }
           }
+          }catch(error){
+            toast.error("Oops...An error occurred",{
+              autoClose:2000,
+              position:"top-center"
+             })
+            setaddToCartLoader(false)
+            console.log(error)
+          }
         })
       }
-      catch(error){
-        setaddToCartLoader(false)
-        console.log(error)
-      }
-    }
 
      const increaseQuantity = (productId) => {
       onAuthStateChanged(auth,async (user)=>{
@@ -168,7 +179,7 @@ export const CartProvider = ({children}) =>{
     }
 
     return(
-        <GlobalState.Provider value={{cart,addToCart,addToFavorites,fetchFavorites,fetchProducts,fetchCurrentUserCartData,increaseQuantity,allProducts,addToCartLoader}}>
+        <GlobalState.Provider value={{cart,favorites,addToCart,addToFavorites,fetchFavorites,fetchProducts,fetchCurrentUserCartData,increaseQuantity,allProducts,addToCartLoader}}>
             {children}
         </GlobalState.Provider>
     )
