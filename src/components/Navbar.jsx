@@ -18,7 +18,7 @@ const Navbar = () => {
   const [userObj,setuserObj] = useState([])
 
   const cart = JSON.parse(localStorage.getItem("cart"))
-  const {fetchCurrentUserCartData,fetchFavorites } = useContext(GlobalState)
+  const {fetchCurrentUserData,fetchFavorites } = useContext(GlobalState)
 
   const toggleCart = () =>{
      setDisplayCart(!displayCart)
@@ -48,7 +48,7 @@ const Navbar = () => {
   useEffect(()=>{
     fetchCurrentUser()
     fetchFavorites()
-    fetchCurrentUserCartData()
+    fetchCurrentUserData()
   },[])
 
   return (

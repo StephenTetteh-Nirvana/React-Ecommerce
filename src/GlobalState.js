@@ -38,7 +38,7 @@ export const CartProvider = ({children}) =>{
         }
       }
 
-      const fetchCurrentUserCartData = () =>{
+      const fetchCurrentUserData = () =>{
           onAuthStateChanged(auth,async (user)=>{
             if(user){
               try{
@@ -53,7 +53,6 @@ export const CartProvider = ({children}) =>{
                   setFavorites([...favoriteData])
                   localStorage.setItem("cart",JSON.stringify(cartData))
                   localStorage.setItem("favorites",JSON.stringify(favoriteData))
-                  console.log("Cart Array:",cart)
                 }
               }
               catch(error){
@@ -84,11 +83,11 @@ export const CartProvider = ({children}) =>{
                   await updateDoc(userDocRef,{favorites: favoriteData})
                   setaddToCartLoader(false)
                   toast.success("Added To Favorites")
-                  fetchCurrentUserCartData()
+                  fetchCurrentUserData()
               }
             }catch(error){
              setaddToCartLoader(false)
-             toast.error("Oops...An error occurred",{
+             toast.error("Please Connect To The Internet",{
               autoClose:2000,
               position:"top-center"
              })
@@ -110,7 +109,6 @@ export const CartProvider = ({children}) =>{
                 const favoritesArray = userDoc.data().favorites;
                 setFavorites([...favoritesArray])
                 localStorage.setItem("favorites",JSON.stringify(favoritesArray))
-                console.log("Favorite Array:",favorites)
               }
             }catch(error){
               console.log(error)
@@ -141,14 +139,13 @@ export const CartProvider = ({children}) =>{
                 cartData.push(newItem)
                 await updateDoc(userDocRef,{cart: cartData})
                 setCart([...cart,{cartData}])
-                console.log(cart)
                 setaddToCartLoader(false)
                 toast.success("Item Added Successfully")
-                fetchCurrentUserCartData()
+                fetchCurrentUserData()
             }
           }
           }catch(error){
-            toast.error("Oops...An error occurred",{
+            toast.error("Please Connect To The Interner",{
               autoClose:2000,
               position:"top-center"
              })
@@ -179,7 +176,7 @@ export const CartProvider = ({children}) =>{
     }
 
     return(
-        <GlobalState.Provider value={{cart,favorites,addToCart,addToFavorites,fetchFavorites,fetchProducts,fetchCurrentUserCartData,increaseQuantity,allProducts,addToCartLoader}}>
+        <GlobalState.Provider value={{cart,favorites,addToCart,addToFavorites,fetchFavorites,fetchProducts,fetchCurrentUserData,increaseQuantity,allProducts,addToCartLoader}}>
             {children}
         </GlobalState.Provider>
     )

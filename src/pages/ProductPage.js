@@ -20,20 +20,14 @@ const ProductPage = () => {
     const existingProduct = () =>{
         const alreadyAddedProduct = cart.find((p)=> p.id === product.id)
         if(alreadyAddedProduct){
-          console.log("Product already exists",product)
           setExistingProduct(true)
-        }else{
-          console.log("Product was not found in the cart")
         }
     }
 
     const existingFavoriteProduct = () =>{
       const alreadyLikedProduct = favorites.find((p)=> p.id === product.id)
       if(alreadyLikedProduct){
-        console.log("Product already liked",product)
         setLikedProduct(true)
-      }else{
-        console.log("Product was not found in favorites")
       }
   }
 
