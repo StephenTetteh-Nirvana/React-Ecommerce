@@ -33,8 +33,8 @@ const FavoriteProduct = ({product}) => {
                 toast.success("Removed From Favorites",{
                     autoClose:1500
                 })
-                setremoveFromFavorites(false)
                 fetchCurrentUserData()
+                setremoveFromFavorites(false)
               }
             }
             catch(error){

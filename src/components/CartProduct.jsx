@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { db,auth } from "../firebase.js"
 import { onAuthStateChanged } from "firebase/auth"
 import { doc,getDoc,updateDoc } from "firebase/firestore"
@@ -33,7 +33,8 @@ const CartProduct = ({item}) => {
                 }
                 setdeleteProduct(false)
                 toast.success("Cart Updated Successfully",{
-                    autoClose:1500
+                    autoClose:1500,
+                    position:"top-center"
                 })
                 fetchCurrentUserData()
             }
@@ -69,7 +70,9 @@ const CartProduct = ({item}) => {
                 }
                 setdeleteProduct(false)
                 toast.success("Cart Updated Successfully",{
-                    autoClose:1500
+                    autoClose:1500,
+                    position:"top-center"
+
                 })
                 fetchCurrentUserData()
             }
@@ -102,7 +105,8 @@ const CartProduct = ({item}) => {
                     cart:updatedcartArray
                 })
                 toast.success("Cart Updated Successfully",{
-                    autoClose:1500
+                    autoClose:1500,
+                    position:"top-center"
                 })
                 setdeleteProduct(false)
                 fetchCurrentUserData()
@@ -118,7 +122,6 @@ const CartProduct = ({item}) => {
         }
         })
     }
-
 
   return (
     <div>

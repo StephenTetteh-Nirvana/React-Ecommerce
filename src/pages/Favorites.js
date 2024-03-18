@@ -18,7 +18,7 @@ const Favorites = () => {
   return (
     <div>
       <Navbar/>
-      <h1>Favorites List</h1>
+      <h1 className="favorites-heading">Favorites List</h1>
       <div className="favorites-container">
         { favorites.length == 0 ? (
             <div className="favorites-content-box">

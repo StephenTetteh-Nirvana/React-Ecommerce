@@ -5,7 +5,10 @@
     flex-wrap:wrap;
     min-height:100vh;
 }
-
+.favorites-heading{
+    margin-left:20px;
+    margin-top:10px;
+}
 .favorites-content-box{
     position: absolute;
     top:50%;
