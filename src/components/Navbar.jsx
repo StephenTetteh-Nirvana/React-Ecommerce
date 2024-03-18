@@ -24,6 +24,7 @@ const Navbar = () => {
      setDisplayCart(!displayCart)
   }
 
+
   const fetchCurrentUser = () =>{
     onAuthStateChanged(auth,async (user)=>{
      if(user){
@@ -63,7 +64,7 @@ const Navbar = () => {
 
         <div className="user-section">
           <div className="cart-box">
-              <img onClick={()=>toggleCart()} src={ShoppingBag} alt="user"/>
+              <img onClick={toggleCart} src={ShoppingBag} alt="user"/>
               <span>{cart.length}</span>
           </div>
           

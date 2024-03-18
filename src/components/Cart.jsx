@@ -1,14 +1,17 @@
 import "../css/Cart.css"
-import {useState} from "react"
+import {useState,useContext} from "react"
 import CloseCart from "../images/close-cart.png"
 import {Link} from "react-router-dom"
 import EmptyBag from "../images/empty-bag.png"
 import CartProduct from "../components/CartProduct.jsx"
+import GlobalState from "../GlobalState.js"
 
 
 
 const Cart = () => {
   const [closeCart,setCloseCart] = useState(false)
+
+  const { deleteFromCart } = useContext(GlobalState) 
 
   const cart = JSON.parse(localStorage.getItem("cart"))
 
@@ -40,13 +43,13 @@ const Cart = () => {
                 </div>
                 ) : ( 
                     cart.map((item)=>(
-                      <CartProduct key={item.name} item={item}></CartProduct>
+                      <CartProduct key={item.id} item={item}></CartProduct>
                     ))
                 )
             }
-
-          <button className="checkout-btn">PROCEED TO CHECKOUT</button>
       </div>
+      {cart.length > 0 && <button className="checkout-btn">PROCEED TO CHECKOUT</button>}
+      
     </div>
   </div>
   )

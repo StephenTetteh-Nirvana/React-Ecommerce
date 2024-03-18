@@ -7,13 +7,12 @@ import { onAuthStateChanged } from "firebase/auth";
 const GlobalState = createContext();
 
 export const CartProvider = ({children}) =>{
-  
-
      const [cart,setCart] = useState([])
      const [favorites,setFavorites] = useState([])
      const [allProducts,setallProducts] = useState([])
      const [loadedProducts,setloadedProducts] = useState(false)
      const [addToCartLoader,setaddToCartLoader] = useState(false)
+
 
      const fetchProducts = async () => {
         if(!loadedProducts){

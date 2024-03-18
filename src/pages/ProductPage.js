@@ -21,6 +21,8 @@ const ProductPage = () => {
         const alreadyAddedProduct = cart.find((p)=> p.id === product.id)
         if(alreadyAddedProduct){
           setExistingProduct(true)
+        }else{
+          setExistingProduct(false)
         }
     }
 
@@ -28,6 +30,8 @@ const ProductPage = () => {
       const alreadyLikedProduct = favorites.find((p)=> p.id === product.id)
       if(alreadyLikedProduct){
         setLikedProduct(true)
+      }else{
+        setLikedProduct(false)
       }
   }
 
