@@ -42,7 +42,7 @@ const Navbar = () => {
         <div className="user-section">
           <div className="cart-box">
               <img onClick={toggleCart} src={ShoppingBag} alt="user"/>
-              <span>{ cart.length !== 0 ? cart.length : "0"}</span>
+              <span>0</span>
           </div>
           
           { displayCart && <Cart setDisplayCart={setDisplayCart}/> }
