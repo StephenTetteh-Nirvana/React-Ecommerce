@@ -84,7 +84,6 @@ const Register = () => {
                 })
               }
               else{
-                (error.code==='auth/network-request-failed') 
                 toast.error("Please check your internet connection",{
                   autoClose:2000,
                   position:"top-center"
