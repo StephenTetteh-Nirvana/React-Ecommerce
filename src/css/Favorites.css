@@ -8,22 +8,22 @@
 .favorites-heading{
     margin-left:20px;
     margin-top:10px;
+
 }
 .favorites-content-box{
     position: absolute;
     top:50%;
     left:50%;
     transform: translate(-50%,-50%);
-}
-.img-box{
-    margin-left:100px;
+    width:90%;
+    text-align: center;
 }
 .add-favorites-btn{
     padding:10px 45px;
     background:#000;
     color:#FFFFFFFF;
     border:none;
-    margin:10px 70px;
+
 }
 
 .add-favorites-btn:hover{
@@ -32,4 +32,34 @@
     color:black;
     cursor: pointer;
     transition: background-color 300ms;
+}
+
+@media only screen and (max-width:480px){
+    .favorites-heading{
+        font-size:25px;
+    }
+    .favorites-content-box{
+        margin-top:30px;
+    }
+    .favorites-content-box h1{
+        font-size:20px;
+   }
+   .img-box img{ 
+        width:70px;
+        height:70px;
+   }
+   .add-favorites-btn{
+    margin-top:6px;
+   }
+
+}
+
+
+@media only screen and (max-width:1024px) and (min-width:767px){
+    .favorites-content-box h1{
+         font-size:25px;
+    }
+    .add-favorites-btn{
+        font-size:20px;
+    }
 }

@@ -106,14 +106,8 @@ const Login = () => {
               </h4>
             </form>
 
-            { loading ? (
-                    <CartLoader/>
-                ) : (
-                  console.log("error")
-                )}
-    </div>
-  )
+            { loading && <CartLoader/> }
+   </div>
+)
 }
-
-
 export default Login

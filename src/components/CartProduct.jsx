@@ -11,13 +11,13 @@ import "../css/CartProduct.css"
 const CartProduct = ({item}) => {
 
     const { fetchCurrentUserData } = useContext(GlobalState)
-    const [deleteProduct,setdeleteProduct] = useState(false)
+    const [updateProduct,setUpdateProduct] = useState(false)
 
     const increaseProductQuantity = (productId) =>{
         onAuthStateChanged(auth,async (user)=>{
             if(user){
               try{
-              setdeleteProduct(true)
+              setUpdateProduct(true)
               const uid = user.uid;
               const userDocRef = doc(db,"Users",uid)
               const userDoc = await getDoc(userDocRef)
@@ -28,19 +28,19 @@ const CartProduct = ({item}) => {
                 if(product){
                     product.quantity += 1;
                     await updateDoc(userDocRef,{ cart:cartData })
+                    fetchCurrentUserData()
+                    toast.success("Cart Updated Successfully",{
+                        autoClose:1500,
+                        position:"top-center"
+                    })
+                setUpdateProduct(false)
                 }else{
                     console.log()
                 }
-                setdeleteProduct(false)
-                toast.success("Cart Updated Successfully",{
-                    autoClose:1500,
-                    position:"top-center"
-                })
-                fetchCurrentUserData()
             }
         }
             catch(error){
-                setdeleteProduct(false)
+                setUpdateProduct(false)
                 toast.error("Oops...An Error Occured",{
                     autoClose:1500
                 })
@@ -54,7 +54,7 @@ const CartProduct = ({item}) => {
         onAuthStateChanged(auth,async (user)=>{
             if(user){
               try{
-              setdeleteProduct(true)
+              setUpdateProduct(true)
               const uid = user.uid;
               const userDocRef = doc(db,"Users",uid)
               const userDoc = await getDoc(userDocRef)
@@ -62,23 +62,23 @@ const CartProduct = ({item}) => {
               if(userDoc.exists()){
                 const cartData = userDoc.data().cart;
                 const product = cartData.find((p) => p.id === productId)
-                if(product.quantity > 0){
+                if(product.quantity > 1){
                     product.quantity -= 1;
                     await updateDoc(userDocRef,{ cart:cartData })
+                    fetchCurrentUserData()
+                    toast.success("Cart Updated Successfully",{
+                        autoClose:1500,
+                        position:"top-center"
+                    })
+                   setUpdateProduct(false)
                 }else{
+                    setUpdateProduct(false)
                     console.log("product less than 1")
                 }
-                setdeleteProduct(false)
-                toast.success("Cart Updated Successfully",{
-                    autoClose:1500,
-                    position:"top-center"
-
-                })
-                fetchCurrentUserData()
             }
         }
             catch(error){
-                setdeleteProduct(false)
+                setUpdateProduct(false)
                 toast.error("Oops...An Error Occured",{
                     autoClose:1500
                 })
@@ -92,7 +92,7 @@ const CartProduct = ({item}) => {
         onAuthStateChanged(auth,async (user)=>{
             if(user){
               try{
-              setdeleteProduct(true)
+              setUpdateProduct(true)
               const uid = user.uid;
               const userDocRef = doc(db,"Users",uid)
               const userDoc = await getDoc(userDocRef)
@@ -108,12 +108,12 @@ const CartProduct = ({item}) => {
                     autoClose:1500,
                     position:"top-center"
                 })
-                setdeleteProduct(false)
+                setUpdateProduct(false)
                 fetchCurrentUserData()
               }
             }
             catch(error){
-                setdeleteProduct(false)
+                setUpdateProduct(false)
                 toast.error("Oops...An Error Occured",{
                     autoClose:1500
                 })
@@ -152,7 +152,7 @@ const CartProduct = ({item}) => {
                     </div>
                 </div>
             </div>
-              { deleteProduct && <CartLoader/>}
+              { updateProduct && <CartLoader/>}
               </div>
   )
 }

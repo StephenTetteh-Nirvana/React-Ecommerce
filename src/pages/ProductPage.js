@@ -1,9 +1,9 @@
 import { useParams,Link } from "react-router-dom"
+import { useContext, useEffect, useState } from "react";
 import Navbar from "../components/Navbar"
 import CartLoader from "../components/CartLoader";
 import "../css/ProductPage.css"
 import Liked from "../images/product-favorite-red.png"
-import { useContext, useEffect, useState } from "react";
 import GlobalState from "../GlobalState";
 
 const ProductPage = () => {
@@ -55,7 +55,7 @@ const ProductPage = () => {
     })   
 
   return (
-    <div>
+    <div className="product-container">
       <Navbar/>
       { product && (
               <div className="products-details-box">

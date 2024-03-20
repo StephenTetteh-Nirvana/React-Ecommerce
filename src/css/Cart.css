@@ -95,6 +95,11 @@
 .delete-btn{
     cursor: pointer;
 }
+.bottom-section{
+    width:100%;
+    margin:auto;
+    padding-bottom:10px;
+}
 .checkout-btn{
     padding:10px 45px;
     background:#000;
@@ -109,4 +114,27 @@
     color:black;
     cursor: pointer;
     transition: background-color 300ms;
+}
+
+
+@media screen and (max-width:767px){
+       .wrapper{
+       animation:MobileshowCart 0.7s forwards;
+       }  
+
+       @keyframes MobileshowCart {
+        0%{
+            left:100%;
+        }
+        100%{
+            left:0%;
+        }
+    }
+
+    .cart-product-container{
+        height:520px;
+    }
+    .bottom-section{
+        margin-left:-50px;
+    }
 }

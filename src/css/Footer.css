@@ -40,3 +40,26 @@
    padding:25px;
    color:black;
 }
+
+@media screen and (max-width:767px){
+    .footer-image-section{
+        margin-left:5px;
+    }
+    .footer-image-section h3{
+        font-size:14px;
+        margin-top:23px;
+    }
+    .newsletter-section{
+        margin-right:20px;
+    } 
+    .newsletter-section h3{
+        font-size:13px;
+    }
+    .newsletter-section input{
+        padding:5px;
+        width:90px;
+    }
+    .newsletter-section button{
+        padding:5px;
+    }
+}

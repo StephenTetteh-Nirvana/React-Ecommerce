@@ -1,4 +1,3 @@
-import "../css/FavoriteProduct.css"
 import { Link } from "react-router-dom"
 import { onAuthStateChanged } from "firebase/auth"
 import { doc,getDoc,updateDoc } from "firebase/firestore"
@@ -7,6 +6,7 @@ import { useContext, useState } from "react"
 import { toast } from "react-toastify"
 import GlobalState from "../GlobalState"
 import CartLoader from "../components/CartLoader.jsx"
+import "../css/FavoriteProduct.css"
 
 
 const FavoriteProduct = ({product}) => {

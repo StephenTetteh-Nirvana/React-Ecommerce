@@ -5,7 +5,7 @@
     padding:0px;
     margin:0px;
 }
-::-webkit-scrollbar{
+/* ::-webkit-scrollbar{
     width:8px;
     background: white;
 }
@@ -14,4 +14,4 @@
 }
 ::-webkit-scrollbar-thumb:hover{
     background: rgb(184, 177, 177);
-}
+} */

@@ -1,10 +1,14 @@
 import Navbar from "../components/Navbar"
+import UserCard from "../components/UserCard"
+
+
 
 const User = () => {
   return (
     <div>
         <Navbar/>
-      <h1>User Information</h1>
+         <UserCard/>
+        
     </div>
   )
 }

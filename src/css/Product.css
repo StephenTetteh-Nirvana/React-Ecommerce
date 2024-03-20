@@ -25,3 +25,10 @@
     font-weight:600;
 }
 
+@media screen and (max-width:767px){
+    .product-box{
+        width:150px;
+        height:150px;
+    }
+}
+

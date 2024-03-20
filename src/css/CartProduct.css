@@ -68,3 +68,12 @@ input[type="number"]{
     margin-left:5px;
     margin-top:11px;
 }
+
+@media screen and (max-width:767px){
+    .cart-product-box{
+        width:85%;
+    }
+    .cart-product-box .section-one{
+        margin-left:10px;
+    }
+}

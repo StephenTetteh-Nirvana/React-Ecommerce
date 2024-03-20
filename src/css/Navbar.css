@@ -17,21 +17,6 @@
     margin-left:7px;
     margin-top:5px;
 }
-.second-section ul{
-    display:flex;
-}
-.second-section ul li{
-    list-style: none;
-    margin:7px;
-    font-size:18px;
-}
-.second-section ul li:hover{
-    color:orangered;
-}
-.to-men,.to-women,.to-accessories,.to-kids{
-    color:white;
-    text-decoration:none;
-}
 .user-section{
     display:flex;
     margin-right:15px;
@@ -62,19 +47,40 @@
     color:white;
     text-decoration: none;
 }
-.hamburger-container{
-    display:none;
+
+@media  screen and (max-width:480px){
+    .first-section{
+        margin-left:-17px;
+    }
+    .user-section{
+        margin-left:10px;
+    }
+  
 }
 
 @media screen and (max-width:767px) {
-    .second-section,.user-section{
-         display:none;
+    .first-section img{
+        width:30px;
+        height:30px;
     }
-    .hamburger-container{
-        display:block;
+    .first-section h3{
+        font-size:18px;
+        margin-left:7px;
+        margin-top:5px;
     }
-    .hamburger-container button{
-        cursor:pointer;
+    .user-section{
+        display:flex;
+        margin-right:2px;
     }
-    
+    .user-section img{
+        width:25px;
+        height:25px;
+        margin:5px;
+    }
+    .cart-box span{
+        font-size:13px;
+        left:18px;
+    }
+
+
 }

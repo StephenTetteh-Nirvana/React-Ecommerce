@@ -7,6 +7,7 @@ import { onAuthStateChanged } from "firebase/auth";
 const GlobalState = createContext();
 
 export const CartProvider = ({children}) =>{
+     const [userObj,setuserObj] = useState([])
      const [cart,setCart] = useState([])
      const [favorites,setFavorites] = useState([])
      const [allProducts,setallProducts] = useState([])
@@ -16,6 +17,7 @@ export const CartProvider = ({children}) =>{
 
      const fetchProducts = async () => {
         if(!loadedProducts){
+          try{
             const colRef = collection(db, "Products");
             const docRef = await getDocs(colRef);
 
@@ -34,8 +36,33 @@ export const CartProvider = ({children}) =>{
             })
             setallProducts([...allProducts, ...productsFromDB]) 
             setloadedProducts(true) 
+          }catch(error){
+             console.log(error)
+          }
+           
         }
       }
+
+      const fetchCurrentUser = () =>{
+        onAuthStateChanged(auth,async (user)=>{
+         if(user){
+           try{
+             const uid = user.uid;
+             const colRef = doc(db,"Users",uid)
+             const userDoc = await getDoc(colRef)
+             if(userDoc.exists){
+                 const userData = userDoc.data();
+                 setuserObj(userData)
+               }else{
+                 console.log("document not recieved in time ")
+               }
+           }
+           catch(error){
+              console.log(error)
+           }
+       }
+        })
+    }
 
       const fetchCurrentUserData = () =>{
           onAuthStateChanged(auth,async (user)=>{
@@ -86,7 +113,7 @@ export const CartProvider = ({children}) =>{
               }
             }catch(error){
              setaddToCartLoader(false)
-             toast.error("Please Connect To The Internet",{
+             toast.error("Connect To The Internet",{
               autoClose:2000,
               position:"top-center"
              })
@@ -144,7 +171,7 @@ export const CartProvider = ({children}) =>{
             }
           }
           }catch(error){
-            toast.error("Please Connect To The Interner",{
+            toast.error("Connect To The Internet",{
               autoClose:2000,
               position:"top-center"
              })
@@ -154,28 +181,8 @@ export const CartProvider = ({children}) =>{
         })
       }
 
-     const increaseQuantity = (productId) => {
-      onAuthStateChanged(auth,async (user)=>{
-        if(user){
-          try{
-            const uid = user.uid;
-            const userDocRef = doc(db,"Products",uid)
-            const userDoc = await getDoc(userDocRef)
-            
-            if(userDoc.exists()){
-              const quantityData = userDoc.data().quantity;
-              console.log(quantityData)
-              console.log(productId)
-            }
-          }catch(error){
-            console.log(error)
-          }
-        }
-      })
-    }
-
     return(
-        <GlobalState.Provider value={{cart,favorites,addToCart,addToFavorites,fetchFavorites,fetchProducts,fetchCurrentUserData,increaseQuantity,allProducts,addToCartLoader}}>
+        <GlobalState.Provider value={{userObj,cart,favorites,addToCart,addToFavorites,fetchFavorites,fetchProducts,fetchCurrentUserData,fetchCurrentUser,allProducts,addToCartLoader}}>
             {children}
         </GlobalState.Provider>
     )
