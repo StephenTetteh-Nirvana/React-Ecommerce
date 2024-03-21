@@ -32,7 +32,7 @@ const FeaturedProducts = () => {
 
     useEffect(()=>{
         fetchProducts()
-    },[newReleases])
+    },[])
 
    
 
