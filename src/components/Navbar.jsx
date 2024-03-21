@@ -12,7 +12,7 @@ const Navbar = () => {
   const [displayCart,setDisplayCart] = useState(false)
 
 
-  const cart = JSON.parse(localStorage.getItem("cart"))
+  // const cart = JSON.parse(localStorage.getItem("cart"))
   const {fetchCurrentUser,fetchCurrentUserData,fetchFavorites } = useContext(GlobalState)
 
   const toggleCart = () =>{
