@@ -48,7 +48,7 @@ const UserCard = () => {
     <div className="user-card-container">
         <div className="user-card">
             <div className="user-image-section">
-                <img src={User} alt="user-image"/>
+                <img src={User} alt="user"/>
                 <h1>Hello,{userObj.userName}</h1>
             </div>
             

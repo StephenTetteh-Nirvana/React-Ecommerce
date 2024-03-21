@@ -8,7 +8,7 @@ const Product = ({item}) => {
         <div className="product-box">
             <Link to={`/products/productPage/${item.id}`}>
               <div className="first-image-box">
-                <img src={require(`../images/${item.images[0]}`)} alt="Item Image"/>
+                <img src={require(`../images/${item.images[0]}`)} alt="Item"/>
               </div>
             </Link>
             

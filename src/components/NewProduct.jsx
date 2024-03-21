@@ -28,7 +28,7 @@ const NewProduct = ({product}) => {
   return (
 
     <div className="featured-product">
-    <img src={require(`../images/${product.src}`)} alt="Image Here"/>
+    <img src={require(`../images/${product.src}`)} alt="Icon Here"/>
     <div className="product-details-section">
         <p className="title">{product.name}</p>
         <p className="subtitle">{product.description}</p>

@@ -50,7 +50,7 @@ const FavoriteProduct = ({product}) => {
         <div className="product-first-section">
             <Link to={`/products/productPage/${product.id}`}>
                 <div className="product-image-box">
-                    <img src={require(`../images/${product.image}`)} alt="Product Image"/>
+                    <img src={require(`../images/${product.image}`)} alt="Product"/>
                 </div>
             </Link>
             

@@ -20,7 +20,7 @@ const Favorites = () => {
       <Navbar/>
       <h1 className="favorites-heading">Favorites List</h1>
       <div className="favorites-container">
-        { favorites.length == 0 ? (
+        { favorites.length === 0 ? (
             <div className="favorites-content-box">
               <div className="img-box">
                 <img src={noFavorites} alt="No Favorite Icon"/>

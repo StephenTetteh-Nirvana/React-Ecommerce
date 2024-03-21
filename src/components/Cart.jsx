@@ -44,7 +44,7 @@ useEffect(()=>{
   <div className={`cart-outer-wrapper ${closeCart ? "closed" : ""}`}>
     <div className={`wrapper ${closeCart ? "closed" : ""}`}>
       <div className="close-cart-box" onClick={toggleClose}>
-        <img src={CloseCart}/>
+        <img src={CloseCart} alt="CloseCart"/>
       </div>
       <p className="cart-heading">YOUR BAG ({cart.length} items)</p>
 

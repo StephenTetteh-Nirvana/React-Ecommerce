@@ -130,7 +130,7 @@ const CartProduct = ({item}) => {
             <div className="cart-product-box">
                 <div className="section-one">
                     <div className="cart-product-image-box">
-                      <img src={require(`../images/${item.image}`)} alt="Item Image"/>
+                      <img src={require(`../images/${item.image}`)} alt="Item"/>
                     </div>
                  
                     <div className="cart-product-details-box">

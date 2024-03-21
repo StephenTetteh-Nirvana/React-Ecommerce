@@ -62,11 +62,11 @@ const ProductPage = () => {
                 {
                   product.images && (
                     <div className="image-section">
-                    <img src={require(`../images/${product.images[currentIndex]}`)} alt="Product Image"/>
+                    <img src={require(`../images/${product.images[currentIndex]}`)} alt="Product "/>
                     <div className="sub-images">
-                      <img onClick={()=>setCurrentIndex(0)} src={require(`../images/${product.images[0]}`)} alt="Product Image"/>
-                      <img onClick={()=>setCurrentIndex(1)} src={require(`../images/${product.images[1]}`)} alt="Product Image"/>
-                      <img onClick={()=>setCurrentIndex(2)} src={require(`../images/${product.images[2]}`)} alt="Product Image"/>
+                      <img onClick={()=>setCurrentIndex(0)} src={require(`../images/${product.images[0]}`)} alt="Product "/>
+                      <img onClick={()=>setCurrentIndex(1)} src={require(`../images/${product.images[1]}`)} alt="Product "/>
+                      <img onClick={()=>setCurrentIndex(2)} src={require(`../images/${product.images[2]}`)} alt="Product "/>
                     </div>
                   </div>
                 )}
@@ -96,7 +96,7 @@ const ProductPage = () => {
               <div className="buttons-box">
                 { LikedProduct ? (
                   <Link to="/favorites">
-                    <button className="existing-favorites-btn">Already Liked<span className="favorite-icon-box"><img src={Liked} alt="liked Image"/></span></button>
+                    <button className="existing-favorites-btn">Already Liked<span className="favorite-icon-box"><img src={Liked} alt="liked"/></span></button>
                   </Link>
                  
                 ) : (
