@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import { db,auth } from "../firebase.js"
 import { onAuthStateChanged } from "firebase/auth"
 import { doc,getDoc,updateDoc } from "firebase/firestore"
@@ -130,7 +130,7 @@ const CartProduct = ({item}) => {
             <div className="cart-product-box">
                 <div className="section-one">
                     <div className="cart-product-image-box">
-                      <img src={require(`../images/${item.image}`)}/>
+                      <img src={require(`../images/${item.image}`)} alt="Item Image"/>
                     </div>
                  
                     <div className="cart-product-details-box">
@@ -148,7 +148,7 @@ const CartProduct = ({item}) => {
                 <div className="section-two">
                     <p className="price">${item.price}.00</p>
                     <div className="delete-btn">
-                        <img src={Delete} onClick={()=>deleteFromCart(item.id)}/>
+                        <img src={Delete} onClick={()=>deleteFromCart(item.id)} alt="delete Icon"/>
                     </div>
                 </div>
             </div>

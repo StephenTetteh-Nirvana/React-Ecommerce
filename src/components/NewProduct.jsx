@@ -28,24 +28,24 @@ const NewProduct = ({product}) => {
   return (
 
     <div className="featured-product">
-    <img src={require(`../images/${product.src}`)} alt="Image Here"></img>
+    <img src={require(`../images/${product.src}`)} alt="Image Here"/>
     <div className="product-details-section">
         <p className="title">{product.name}</p>
         <p className="subtitle">{product.description}</p>
         <div className="price-section">
         <div className="rating-box">
-             <img src={Rating}/>
-             <img src={Rating}/>
-             <img src={Rating}/>
-             <img src={Rating}/>
-             <img src={Rating}/>
+             <img src={Rating} alt="ratings-icon"/>
+             <img src={Rating} alt="ratings-icon"/>
+             <img src={Rating} alt="ratings-icon"/>
+             <img src={Rating} alt="ratings-icon"/>
+             <img src={Rating} alt="ratings-icon"/>
         </div>
         <p className="price">{product.price}</p>
         </div>
     </div>
         <div onClick={()=>{toggleFavorite(product.id)}} className="product-favorites-box">
             <div className="favorite-box">
-               <img src={product.favorite ? Liked : Favorite}/>
+               <img src={product.favorite ? Liked : Favorite} alt="favorite-icon"/>
             </div>
             
         </div>

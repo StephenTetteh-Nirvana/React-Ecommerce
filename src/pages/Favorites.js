@@ -23,7 +23,7 @@ const Favorites = () => {
         { favorites.length == 0 ? (
             <div className="favorites-content-box">
               <div className="img-box">
-                <img src={noFavorites}/>
+                <img src={noFavorites} alt="No Favorite Icon"/>
               </div>
               <h1>No Favorites Found</h1>
               <Link to="/products">

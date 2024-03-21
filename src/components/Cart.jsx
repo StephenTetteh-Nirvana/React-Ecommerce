@@ -50,10 +50,10 @@ useEffect(()=>{
 
       <div>
           {
-                cart.length == 0 ? (
+                cart.length === 0 ? (
                     <div className="no-items">
                       <div className="empty-bag-box">
-                        <img src={EmptyBag}/>
+                        <img src={EmptyBag} alt="EmptyBag"/>
                       </div>
                     <h1>Your Bag is Empty</h1>
                     <Link to="/products">

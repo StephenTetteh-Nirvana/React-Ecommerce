@@ -19,7 +19,7 @@ const Register = () => {
   const navigate = useNavigate()
 
   const RegisterUser = async () => {
-    if(userName === "" || email === "" && password === "" || passwordConfirm === ""){
+    if (userName === "" || (email === "" || password === "" || passwordConfirm === "")) {
       toast.error("Complete the form",{
         autoClose:2500,
         pauseOnHover:true,
@@ -141,7 +141,7 @@ const Register = () => {
         { loading ? (
                     <CartLoader/>
                 ) : (
-                  console.log("error")
+                  console.log("Not Loading")
                 )}
 
     </div>

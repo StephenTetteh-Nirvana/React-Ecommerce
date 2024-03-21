@@ -5,17 +5,15 @@ import User from "../images/user.png"
 import ShoppingBag from "../images/cart.png"
 import Favorites from "../images/favorites.png"
 import {Link} from "react-router-dom"
-import MobileNavigations from "../components/MobileNavigations.jsx"
 import Cart from "../components/Cart.jsx"
 import GlobalState from "../GlobalState.js"
 
 const Navbar = () => {
-  const [mobileDisplay,setMobileDisplay] = useState(false);
   const [displayCart,setDisplayCart] = useState(false)
 
 
   const cart = JSON.parse(localStorage.getItem("cart"))
-  const {userObj,fetchCurrentUser,fetchCurrentUserData,fetchFavorites } = useContext(GlobalState)
+  const {fetchCurrentUser,fetchCurrentUserData,fetchFavorites } = useContext(GlobalState)
 
   const toggleCart = () =>{
      setDisplayCart(!displayCart)
@@ -42,7 +40,7 @@ const Navbar = () => {
         <div className="user-section">
           <div className="cart-box">
               <img onClick={toggleCart} src={ShoppingBag} alt="user"/>
-              <span>0</span>
+              <span>{cart.length}</span>
           </div>
           
           { displayCart && <Cart setDisplayCart={setDisplayCart}/> }
@@ -61,7 +59,6 @@ const Navbar = () => {
          
         </div>
 
-        {mobileDisplay && <MobileNavigations/>}
     </div>
   )
 }
