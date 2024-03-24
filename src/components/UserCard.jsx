@@ -11,7 +11,8 @@ import GlobalState from "../GlobalState"
 
 
 const UserCard = () => {
-  const favorites = JSON.parse(localStorage.getItem("favorites"));
+  const favorites = localStorage.getItem("favorites") !== null ? JSON.parse(localStorage.getItem("favorites")) : []
+  const orders = localStorage.getItem("orders") !== null ? JSON.parse(localStorage.getItem("orders")) : []
   const [isLoggedIn,setIsLoggedIn] = useState(false)
 
   const { userObj,fetchCurrentUser } = useContext(GlobalState)
@@ -63,7 +64,7 @@ const UserCard = () => {
 
             <div>
             <img className="orders-icon" src={Orders} alt="orders-icon"/>
-            <h3>0 Orders</h3>
+            <h3>{orders.length} Orders</h3>
             </div>
 
         </div>

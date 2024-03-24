@@ -58,7 +58,8 @@ const Checkout = () => {
                 const orderData = userDoc.data().order
                 const newOrderArr = [...orderData,...cartData]
                 await updateDoc(docRef,{
-                  order:newOrderArr
+                  order:newOrderArr,
+                  cart:[]
                 })
 
                 setLoading(false)
