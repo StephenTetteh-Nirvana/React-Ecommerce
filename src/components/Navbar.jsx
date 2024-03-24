@@ -10,9 +10,7 @@ import GlobalState from "../GlobalState.js"
 
 const Navbar = () => {
   const [displayCart,setDisplayCart] = useState(false)
-
-
-  // const cart = JSON.parse(localStorage.getItem("cart"))
+  const cart = localStorage.getItem("cart") !== null ?  JSON.parse(localStorage.getItem("cart")):[];
   const {fetchCurrentUser,fetchCurrentUserData,fetchFavorites } = useContext(GlobalState)
 
   const toggleCart = () =>{
@@ -40,7 +38,7 @@ const Navbar = () => {
         <div className="user-section">
           <div className="cart-box">
               <img onClick={toggleCart} src={ShoppingBag} alt="user"/>
-              <span>0</span>
+              <span>{cart.length}</span>
           </div>
           
           { displayCart && <Cart setDisplayCart={setDisplayCart}/> }

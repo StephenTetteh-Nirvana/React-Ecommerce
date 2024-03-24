@@ -49,8 +49,9 @@
 .no-items{
     position:absolute;
     top:50%;
-    left:50%;
+    left:40%;
     transform:translate(-50%,-50%);
+    text-align: center;
 }
 .no-items h1{
     font-size:18px;
@@ -97,7 +98,7 @@
 }
 .bottom-section{
     width:100%;
-    margin:auto;
+    text-align:center;
     padding-bottom:10px;
 }
 .checkout-btn{
@@ -151,7 +152,7 @@
              left:100%;
          }
          100%{
-             left:50%;
+             left:40%;
          }
      }
  

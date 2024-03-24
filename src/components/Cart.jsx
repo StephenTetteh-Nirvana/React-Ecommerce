@@ -9,7 +9,7 @@ import "../css/Cart.css"
 
 const Cart = ({setDisplayCart}) => {
   const [closeCart,setCloseCart] = useState(false) 
-  const cart = JSON.parse(localStorage.getItem("cart"))
+  const cart = localStorage.getItem("cart") !== null ? JSON.parse(localStorage.getItem("cart")):[]
   const [TotalAmount,setTotalAmount] = useState(0)
 
   const toggleClose = () =>{
@@ -74,7 +74,7 @@ useEffect(()=>{
                         <div>
                           <h2>Total: ${TotalAmount.toLocaleString()}.00</h2>
                         </div>
-                        <button className="checkout-btn">PROCEED TO CHECKOUT</button>  
+                        <Link to="/checkout"><button className="checkout-btn">PROCEED TO CHECKOUT</button></Link>
                        </div>
                   </div>
   

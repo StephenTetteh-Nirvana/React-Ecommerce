@@ -9,6 +9,7 @@ const GlobalState = createContext();
 export const CartProvider = ({children}) =>{
      const [userObj,setuserObj] = useState([])
      const [cart,setCart] = useState([])
+     const [orders,setOrders] = useState([])
      const [favorites,setFavorites] = useState([])
      const [allProducts,setallProducts] = useState([])
      const [loadedProducts,setloadedProducts] = useState(false)
@@ -74,10 +75,13 @@ export const CartProvider = ({children}) =>{
                 
                 if(userDoc.exists()){
                   const cartData = userDoc.data().cart;
+                  const orderData = userDoc.data().order;
                   const favoriteData = userDoc.data().favorites;
                   setCart([...cartData])
+                  setOrders([...orderData])
                   setFavorites([...favoriteData])
                   localStorage.setItem("cart",JSON.stringify(cartData))
+                  localStorage.setItem("orders",JSON.stringify(orderData))
                   localStorage.setItem("favorites",JSON.stringify(favoriteData))
                 }
               }

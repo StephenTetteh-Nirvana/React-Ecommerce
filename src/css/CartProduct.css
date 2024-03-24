@@ -1,6 +1,6 @@
 .cart-product-box{
     display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:2fr 1fr;
     margin-top:10px;
     width:100%;
 }
@@ -58,7 +58,9 @@ input[type="number"]{
     width:30px;
     outline:none;
 }
-
+.cart-product-box .section-two{
+    margin-right:30px;
+}
 .cart-product-box .section-two .price{
     margin-top:6px;
     font-size:17px;
