@@ -1,5 +1,6 @@
 import { useContext, useEffect } from "react"
 import Order from "../components/Order.jsx"
+import "../css/Orders.css"
 import Navbar from "../components/Navbar"
 import GlobalState from "../GlobalState"
 
@@ -16,11 +17,10 @@ const Orders = () => {
         <Navbar/>
         <div>
           { orders.length > 0 ? (
-            <div>
+            <div className="orders-products-container">
               { orders.map((order)=>(
                 <Order key={order.id} order={order}/>
               ))
-
               }
             </div>
             

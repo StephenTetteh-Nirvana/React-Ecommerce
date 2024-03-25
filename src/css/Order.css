@@ -1,0 +1,35 @@
+.order-product-container{
+    margin-left:30px;
+}
+.order-product-box{
+    width:250px;
+    height:250px;
+    display:grid;
+    grid-template-rows: 1fr 1fr;
+}
+
+.order-first-section img{
+     width:250px;
+     height:200px;
+}
+.order-info-section{
+    display:flex;
+    justify-content: space-between;
+}
+.order-status-section{
+     margin-top:5px;
+}
+.order-status-section button{
+    background: transparent;
+    color:#FFFFFF;
+    padding:5px;
+    border:none;
+    background-color:#000;
+    cursor:pointer;
+}
+.order-status-section button:hover{
+    color:#000;
+    background-color:white;
+    border:1px solid black;
+    transition:background-color 300ms;
+}

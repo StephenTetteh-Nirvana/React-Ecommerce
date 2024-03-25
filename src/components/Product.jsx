@@ -4,7 +4,6 @@ import { Link } from "react-router-dom"
 
 const Product = ({item}) => {
   return (
-    <div className="product-container">
         <div className="product-box">
             <Link to={`/products/productPage/${item.id}`}>
               <div className="first-image-box">
@@ -17,7 +16,6 @@ const Product = ({item}) => {
                   <p>${item.price}.00</p>
               </div>
         </div>
-    </div>
    
   )
 }

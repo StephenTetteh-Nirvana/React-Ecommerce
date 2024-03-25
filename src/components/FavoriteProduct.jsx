@@ -46,7 +46,6 @@ const FavoriteProduct = ({product}) => {
 
   return (
     <div className="favorite-product-box">
-
         <div className="product-first-section">
             <Link to={`/products/productPage/${product.id}`}>
                 <div className="product-image-box">
