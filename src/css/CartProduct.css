@@ -1,3 +1,6 @@
+.cart-product-parent{
+    width:100%;
+}
 .cart-product-box{
     display:grid;
     grid-template-columns:2fr 1fr;
@@ -78,4 +81,14 @@ input[type="number"]{
     .cart-product-box .section-one{
         margin-left:10px;
     }
+    .cart-product-box .section-two{
+        margin-right:10px;
+    }
+}
+
+@media screen and (max-width:1024px) and (min-width:767px){
+    .cart-product-box .section-one .cart-product-image-box{
+        width:150px;
+        height:150px;
+}
 }

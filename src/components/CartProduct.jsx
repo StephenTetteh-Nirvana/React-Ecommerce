@@ -124,9 +124,7 @@ const CartProduct = ({item}) => {
     }
 
   return (
-    <div>
-
- 
+    <div className="cart-product-parent">
             <div className="cart-product-box">
                 <div className="section-one">
                     <div className="cart-product-image-box">

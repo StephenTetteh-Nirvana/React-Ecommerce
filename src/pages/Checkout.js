@@ -1,12 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify"
 import { useState,useEffect } from "react";
-import "../css/Checkout.css"
-import CartLoader from "../components/CartLoader";
-import Arrow from "../images/icons8-back-arrow-50.png"
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { getDoc,doc, updateDoc } from "firebase/firestore";
+import "../css/Checkout.css"
+import CartLoader from "../components/CartLoader";
+import Arrow from "../images/icons8-back-arrow-50.png"
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const Checkout = () => {
      const cart = localStorage.getItem("cart") !== null ? JSON.parse(localStorage.getItem("cart")) : []
@@ -89,6 +91,8 @@ const Checkout = () => {
 
 
   return (
+    <div>
+       <Navbar/>
     <div className="checkout-container">
       <div className="checkout-product-container">
           <h2>Order Summary</h2>
@@ -127,10 +131,6 @@ const Checkout = () => {
        
       </div>
     <div className="payment-container">
-      <div className="checkout-header">
-      <span onClick={()=>navigate(-1)}><img src={Arrow}/></span>
-      <h1>Checkout</h1>
-      </div>
        <section className="payment-form">
         <h3>PAYMENT DETAILS</h3>
         <p>Complete your purchase by providing your payment details.</p>
@@ -198,6 +198,7 @@ const Checkout = () => {
        </section>
     </div>
     {loading && <CartLoader/>}
+  </div>
   </div>
   )
 }
