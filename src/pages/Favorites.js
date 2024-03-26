@@ -31,9 +31,14 @@ const Favorites = () => {
               </Link>
           </div>
         ) : (
-            favorites.map((favorite)=>(
-              <FavoriteProduct key={favorite.id} product={favorite}/>
-            ))
+          <div className="allFavorites-container">
+            {
+               favorites.map((favorite)=>(
+                <FavoriteProduct key={favorite.id} product={favorite}/>
+              ))
+            }
+            </div>
+           
         )
 
         }

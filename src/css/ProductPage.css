@@ -149,8 +149,11 @@
     .product-info-section-two{
         margin-top:20px;
     }
-    .favorites-btn{
+    .favorites-btn,.existing-product-btn{
         padding:10px 15px;
+    }
+    .existing-favorites-btn{
+        padding:10px 28px;
     }
     
 }

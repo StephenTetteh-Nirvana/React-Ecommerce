@@ -78,6 +78,10 @@ input[type="number"]{
     .cart-product-box{
         width:90%;
     }
+    .cart-product-box .section-one .cart-product-image-box img{
+        width:65px;
+        height:65px;
+  }
     .cart-product-box .section-one{
         margin-left:10px;
     }

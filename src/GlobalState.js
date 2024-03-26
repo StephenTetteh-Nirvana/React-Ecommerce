@@ -3,6 +3,7 @@ import { toast } from "react-toastify"
 import { db,auth } from "./firebase.js"
 import { collection, doc, getDoc, getDocs, updateDoc } from "firebase/firestore"
 import { onAuthStateChanged } from "firebase/auth";
+import Swal from "sweetalert2";
 
 const GlobalState = createContext();
 
@@ -61,6 +62,8 @@ export const CartProvider = ({children}) =>{
            catch(error){
               console.log(error)
            }
+       }else{
+        console.log("No User")
        }
         })
     }
@@ -89,6 +92,9 @@ export const CartProvider = ({children}) =>{
                 console.log(error)
               }
             }
+            else{
+        console.log("No User")
+       }
           })
       }
 
@@ -112,7 +118,9 @@ export const CartProvider = ({children}) =>{
                   favoriteData.push(newFavorite)
                   await updateDoc(userDocRef,{favorites: favoriteData})
                   setaddToCartLoader(false)
-                  toast.success("Added To Favorites")
+                  toast.success("Added To Favorites",{
+                    autoClose:1200
+                  })
                   fetchCurrentUserData()
               }
             }catch(error){
@@ -123,7 +131,13 @@ export const CartProvider = ({children}) =>{
              })
              console.log(error)
             } 
-          }
+          }else{
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Please create an account first!'
+              })
+           }
       })
     }
 
@@ -170,10 +184,18 @@ export const CartProvider = ({children}) =>{
                 await updateDoc(userDocRef,{cart: cartData})
                 setCart([...cart,{cartData}])
                 setaddToCartLoader(false)
-                toast.success("Item Added Successfully")
+                toast.success("Item Added Successfully",{
+                  autoClose:1200
+                })
                 fetchCurrentUserData()
             }
-          }
+          }else{
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Please create an account first!'
+              })
+           }
           }catch(error){
             toast.error("Connect To The Internet",{
               autoClose:2000,
@@ -185,8 +207,10 @@ export const CartProvider = ({children}) =>{
         })
       }
 
+      
+
     return(
-        <GlobalState.Provider value={{userObj,cart,favorites,addToCart,addToFavorites,fetchFavorites,fetchProducts,fetchCurrentUserData,fetchCurrentUser,allProducts,addToCartLoader}}>
+        <GlobalState.Provider value={{userObj,cart,setCart,setFavorites,setOrders,favorites,addToCart,addToFavorites,fetchFavorites,fetchProducts,fetchCurrentUserData,fetchCurrentUser,allProducts,addToCartLoader}}>
             {children}
         </GlobalState.Provider>
     )

@@ -15,7 +15,7 @@ const UserCard = () => {
   const orders = localStorage.getItem("orders") !== null ? JSON.parse(localStorage.getItem("orders")) : []
   const [isLoggedIn,setIsLoggedIn] = useState(false)
 
-  const { userObj,fetchCurrentUser } = useContext(GlobalState)
+  const { userObj,fetchCurrentUser,setCart,setFavorites,setOrders } = useContext(GlobalState)
 
   const navigate = useNavigate()
 
@@ -30,6 +30,12 @@ const UserCard = () => {
   const LogOut = async () =>{
     try{
       await signOut(auth)
+      setCart([])
+      setFavorites([])
+      setOrders([])
+      localStorage.setItem("cart",JSON.stringify([]))
+      localStorage.setItem("favorites",JSON.stringify([]))
+      localStorage.setItem("orders",JSON.stringify([]))
       toast.success("You Logged Out",{
         autoClose:1000
       })
