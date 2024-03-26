@@ -15,7 +15,7 @@ const Orders = () => {
   return (
     <div> 
         <Navbar/>
-        <div>
+        <div className="allOrders-container">
           { orders.length > 0 ? (
             <div className="orders-products-container">
               { orders.map((order)=>(

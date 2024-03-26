@@ -25,7 +25,7 @@
     grid-template-columns: 1fr 1fr;
     margin-top:15px;
 }
-.favorites-box h3{
+.favorites-box h3,.orders-box h3{
     color:black;
 }
 .orders-icon{

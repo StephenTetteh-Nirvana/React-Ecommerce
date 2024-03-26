@@ -16,6 +16,9 @@
     display:flex;
     justify-content: space-between;
 }
+.order-info-section p{
+    font-weight:600;
+}
 .order-status-section{
      margin-top:5px;
 }
@@ -32,4 +35,34 @@
     background-color:white;
     border:1px solid black;
     transition:background-color 300ms;
+}
+
+@media screen and (max-width:767px) {
+    .order-product-container{
+        margin-left:8px;
+    }
+    .order-product-box{
+        width:170px;
+        height:200px;
+        display:grid;
+        grid-template-rows: 1fr 1fr;
+    }
+    
+    .order-first-section img{
+        width:150px;
+        height:150px;
+    }
+}
+
+@media screen and (max-width:1024px) and (min-width:767px){
+    .order-product-container{
+        margin-left:8px;
+    }
+    .order-product-box{
+        width:170px;
+    }
+    .order-first-section img{
+        width:190px;
+    }
+    
 }

@@ -59,3 +59,12 @@
     }
 
 }
+
+@media screen and (max-width:1024px) and (min-width:767px){
+    .showcase{
+        height:33vh;
+    }
+    .text-display-section{
+        margin-left:10px;
+    }
+}

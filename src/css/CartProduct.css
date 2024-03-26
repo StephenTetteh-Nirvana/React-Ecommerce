@@ -76,7 +76,7 @@ input[type="number"]{
 
 @media screen and (max-width:767px){
     .cart-product-box{
-        width:85%;
+        width:90%;
     }
     .cart-product-box .section-one{
         margin-left:10px;
@@ -88,7 +88,17 @@ input[type="number"]{
 
 @media screen and (max-width:1024px) and (min-width:767px){
     .cart-product-box .section-one .cart-product-image-box{
-        width:150px;
-        height:150px;
-}
+        width:100px;
+        height:100px;
+    }
+    .cart-product-box .section-one .cart-product-image-box img{
+          width:80px;
+          height:80px;
+    }
+    .cart-product-details-box .product-name{
+        font-size:25px;
+    }
+    .cart-product-box .section-two .price{
+        font-size:23px;  
+    }
 }

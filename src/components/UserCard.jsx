@@ -62,10 +62,13 @@ const UserCard = () => {
                 </div>
             </Link>
 
-            <div>
-            <img className="orders-icon" src={Orders} alt="orders-icon"/>
-            <h3>{orders.length} Orders</h3>
-            </div>
+           <Link to="/orders" style={{ textDecoration: 'none'}}>
+              <div className="orders-box">
+              <img className="orders-icon" src={Orders} alt="orders-icon"/>
+              <h3>{orders.length} Orders</h3>
+              </div>
+           </Link>
+            
 
         </div>
           { isLoggedIn ? (

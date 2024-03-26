@@ -61,7 +61,7 @@ useEffect(()=>{
                     </Link>
                 </div>
                 ) : ( 
-                  <div>
+                  <div className="cart-products-parent">
                     <div className="cart-product-container">
                        {
                           cart.map((item)=>(

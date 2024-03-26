@@ -11,7 +11,7 @@ const Order = ({order}) => {
             </div>
             <div className="order-second-section">
               <div className="order-info-section">
-                <p>{order.name} x <span>{order.quantity}</span></p>
+                <p>{order.name}</p>
                 <p>${order.price}.00</p>
               </div>
               <div className="order-status-section">
