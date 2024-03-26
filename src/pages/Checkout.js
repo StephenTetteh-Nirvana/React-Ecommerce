@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { toast } from "react-toastify"
 import { useState,useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
@@ -6,9 +6,7 @@ import { auth, db } from "../firebase";
 import { getDoc,doc, updateDoc } from "firebase/firestore";
 import "../css/Checkout.css"
 import CartLoader from "../components/CartLoader";
-import Arrow from "../images/icons8-back-arrow-50.png"
 import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 
 const Checkout = () => {
      const cart = localStorage.getItem("cart") !== null ? JSON.parse(localStorage.getItem("cart")) : []
@@ -91,114 +89,126 @@ const Checkout = () => {
 
 
   return (
-    <div>
+    <div className="checkout-parent">
        <Navbar/>
-    <div className="checkout-container">
-      <div className="checkout-product-container">
-          <h2>Order Summary</h2>
-          <div className="order-summary-products-container">
-            <ul className="products-table">
-              <li>Product</li>
-              <li>Name</li>
-              <li>Price</li>
-              <li>Qty</li>
-            </ul>
-
-          <div className="products">
-              {
-                cart.map((product)=>(
-                  <div key={product.id} className="checkout-product-box">
-
-                    <div className="first-section">
-                      <img src={require(`../images/${product.image}`)}/>
-                    </div>
-
-                    <div className="second-section">
-                       <h3>{product.name}</h3>
-                    </div>
-
-                    <div className="third-section">
-                      <h3>${product.price}.00</h3>
-                    </div>
-
-                    <div className="fourth-section">
-                      <h3>x {product.quantity}</h3>
-                    </div>
-                </div>
-              ))}
-          </div>
-        </div>
-       
-      </div>
-    <div className="payment-container">
-       <section className="payment-form">
-        <h3>PAYMENT DETAILS</h3>
-        <p>Complete your purchase by providing your payment details.</p>
-        <div className="payment-input-container">
-            <div className="input-btn1">
-              <label>Email Address</label><br/>
-              <input type="text" placeholder="eg.stephen@gmail.com" 
-              value={email} 
-              onChange={(e)=>setEmail(e.target.value)}
-              />
-            </div>
-
-            <div className="input-btn2" >
-                <label>Card Details</label><br/>
-                <input type="number" placeholder="4242 4242 4242 4242"  
-                value={cardDetails} 
-                onChange={(e)=>setcardDetails(e.target.value)}
-                />
-            </div>
-
-            <div className="input-btn3">
-                <label>Exp.Date</label><br/>
-                <input type="date" placeholder="MM/YY" 
-                value={expDate}
-                onChange={(e)=>setexpDate(e.target.value)}
-                />
-            </div>
-            
-            <div className="input-btn4">
-                <label>CVC</label><br/>
-                <input type="number" placeholder="4242" 
-                value={cvc} 
-                onChange={(e)=>setCvc(e.target.value)}
-                />
-            </div>
-
-            <div className="input-btn5">
-                <label>Full Name</label><br/>
-                <input type="text" placeholder="John Doe" 
-                value={fullName} 
-                onChange={(e)=>setfullName(e.target.value)}
-                />
-            </div> 
-        </div>
-
-        <div className="payment-bottom-section">
-            <div className="total-payment-section">
-                <div>
-                    <p>SubTotal</p>
-                    <p>${TotalAmount.toLocaleString()}.00</p>
-                </div>
-
-                  <div>
-                    <p>Delivery Fee</p>
-                    <p>$0.00</p>
+       { cart.length > 0 ? (
+              <div className="checkout-container">
+              <div className="checkout-product-container">
+                  <h2>Order Summary</h2>
+                  <div className="order-summary-products-container">
+                    <ul className="products-table">
+                      <li>Product</li>
+                      <li>Name</li>
+                      <li>Price</li>
+                      <li>Qty</li>
+                    </ul>
+        
+                  <div className="products">
+                      {
+                        cart.map((product)=>(
+                          <div key={product.id} className="checkout-product-box">
+        
+                            <div className="first-section">
+                              <img src={require(`../images/${product.image}`)}/>
+                            </div>
+        
+                            <div className="second-section">
+                               <h3>{product.name}</h3>
+                            </div>
+        
+                            <div className="third-section">
+                              <h3>${product.price}.00</h3>
+                            </div>
+        
+                            <div className="fourth-section">
+                              <h3>x {product.quantity}</h3>
+                            </div>
+                        </div>
+                      ))}
                   </div>
-
-                <div className="total">
-                    <p>Total</p>
-                    <p>${TotalAmount.toLocaleString()}.00</p>
                 </div>
+               
+              </div>
+            <div className="payment-container">
+               <section className="payment-form">
+                <h3>PAYMENT DETAILS</h3>
+                <p>Complete your purchase by providing your payment details.</p>
+                <div className="payment-input-container">
+                    <div className="input-btn1">
+                      <label>Email Address</label><br/>
+                      <input type="text" placeholder="eg.stephen@gmail.com" 
+                      value={email} 
+                      onChange={(e)=>setEmail(e.target.value)}
+                      />
+                    </div>
+        
+                    <div className="input-btn2" >
+                        <label>Card Details</label><br/>
+                        <input type="number" placeholder="4242 4242 4242 4242"  
+                        value={cardDetails} 
+                        onChange={(e)=>setcardDetails(e.target.value)}
+                        />
+                    </div>
+        
+                    <div className="input-btn3">
+                        <label>Exp.Date</label><br/>
+                        <input type="date" placeholder="MM/YY" 
+                        value={expDate}
+                        onChange={(e)=>setexpDate(e.target.value)}
+                        />
+                    </div>
+                    
+                    <div className="input-btn4">
+                        <label>CVC</label><br/>
+                        <input type="number" placeholder="4242" 
+                        value={cvc} 
+                        onChange={(e)=>setCvc(e.target.value)}
+                        />
+                    </div>
+        
+                    <div className="input-btn5">
+                        <label>Full Name</label><br/>
+                        <input type="text" placeholder="John Doe" 
+                        value={fullName} 
+                        onChange={(e)=>setfullName(e.target.value)}
+                        />
+                    </div> 
+                </div>
+        
+                <div className="payment-bottom-section">
+                    <div className="total-payment-section">
+                        <div>
+                            <p>SubTotal</p>
+                            <p>${TotalAmount.toLocaleString()}.00</p>
+                        </div>
+        
+                          <div>
+                            <p>Delivery Fee</p>
+                            <p>$0.00</p>
+                          </div>
+        
+                        <div className="total">
+                            <p>Total</p>
+                            <p>${TotalAmount.toLocaleString()}.00</p>
+                        </div>
+                    </div>
+                   <button className="purchase-btn" onClick={completePurchase}>Pay ${TotalAmount.toLocaleString()}.00</button>
+                </div>
+               </section>
             </div>
-           <button className="purchase-btn" onClick={completePurchase}>Pay ${TotalAmount.toLocaleString()}.00</button>
-        </div>
-       </section>
-    </div>
-    {loading && <CartLoader/>}
-  </div>
+            {loading && <CartLoader/>}
+          </div>
+       ) : (
+          <div className="no-checkout-container">
+              <h1>Your Cart Is Empty</h1>
+              <Link to="/products">
+                <button>Go Shopping</button>
+              </Link>
+          </div>
+       )
+         
+       }
+    
   </div>
   )
 }

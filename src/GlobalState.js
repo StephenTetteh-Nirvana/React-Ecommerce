@@ -14,7 +14,7 @@ export const CartProvider = ({children}) =>{
      const [favorites,setFavorites] = useState([])
      const [allProducts,setallProducts] = useState([])
      const [loadedProducts,setloadedProducts] = useState(false)
-     const [addToCartLoader,setaddToCartLoader] = useState(false)
+     const [loading,setLoading] = useState(false)
 
 
      const fetchProducts = async () => {
@@ -102,7 +102,7 @@ export const CartProvider = ({children}) =>{
           onAuthStateChanged(auth,async (user)=>{
             if(user){
               try{
-              setaddToCartLoader(true)
+              setLoading(true)
               const uid = user.uid;
               const userDocRef = doc(db,"Users",uid)
               const userDoc = await getDoc(userDocRef)
@@ -117,14 +117,14 @@ export const CartProvider = ({children}) =>{
                   }
                   favoriteData.push(newFavorite)
                   await updateDoc(userDocRef,{favorites: favoriteData})
-                  setaddToCartLoader(false)
+                  setLoading(false)
                   toast.success("Added To Favorites",{
                     autoClose:1200
                   })
                   fetchCurrentUserData()
               }
             }catch(error){
-             setaddToCartLoader(false)
+             setLoading(false)
              toast.error("Connect To The Internet",{
               autoClose:2000,
               position:"top-center"
@@ -132,6 +132,7 @@ export const CartProvider = ({children}) =>{
              console.log(error)
             } 
           }else{
+            setLoading(false)
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
@@ -165,7 +166,7 @@ export const CartProvider = ({children}) =>{
      const addToCart = (id,image,name,price,quantity) => {
         onAuthStateChanged(auth,async (user)=>{
           try{
-            setaddToCartLoader(true)
+            setLoading(true)
             if(user){
             const uid = user.uid;
             const userDocRef = doc(db,"Users",uid)
@@ -183,13 +184,14 @@ export const CartProvider = ({children}) =>{
                 cartData.push(newItem)
                 await updateDoc(userDocRef,{cart: cartData})
                 setCart([...cart,{cartData}])
-                setaddToCartLoader(false)
+                setLoading(false)
                 toast.success("Item Added Successfully",{
                   autoClose:1200
                 })
                 fetchCurrentUserData()
             }
           }else{
+            setLoading(false)
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
@@ -201,7 +203,7 @@ export const CartProvider = ({children}) =>{
               autoClose:2000,
               position:"top-center"
              })
-            setaddToCartLoader(false)
+            setLoading(false)
             console.log(error)
           }
         })
@@ -210,7 +212,7 @@ export const CartProvider = ({children}) =>{
       
 
     return(
-        <GlobalState.Provider value={{userObj,cart,setCart,setFavorites,setOrders,favorites,addToCart,addToFavorites,fetchFavorites,fetchProducts,fetchCurrentUserData,fetchCurrentUser,allProducts,addToCartLoader}}>
+        <GlobalState.Provider value={{userObj,cart,setCart,setFavorites,setOrders,favorites,addToCart,addToFavorites,fetchFavorites,fetchProducts,fetchCurrentUserData,fetchCurrentUser,allProducts,loading}}>
             {children}
         </GlobalState.Provider>
     )

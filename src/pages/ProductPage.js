@@ -11,7 +11,7 @@ const ProductPage = () => {
     const allProducts = localStorage.getItem("Products") !== null ?  JSON.parse(localStorage.getItem("Products")):[];
     const product = allProducts.find((p) => p.id === id)
 
-    const {cart,favorites,addToFavorites,addToCart,addToCartLoader} = useContext(GlobalState)
+    const {cart,favorites,addToFavorites,addToCart,loading} = useContext(GlobalState)
     const [currentIndex,setCurrentIndex] = useState(0)
     const [quantity,setQuantity] = useState(1)
     const [ExistingProduct,setExistingProduct] = useState(false) 
@@ -110,7 +110,7 @@ const ProductPage = () => {
                 <button className="add-btn" onClick={()=>addToCart(product.id,product.images[0],product.name,product.price,quantity)}>Add To Cart</button>
               )}
 
-              {addToCartLoader && <CartLoader/>}
+              {loading && <CartLoader/>}
               
               </div>
              

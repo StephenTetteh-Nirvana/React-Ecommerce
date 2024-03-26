@@ -8,6 +8,30 @@
     height:100%;
     row-gap: 70px;
 }
+.no-orders-container{
+    width:100%;
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    text-align: center;
+}
+
+.no-orders-container button{
+    margin:auto;
+    padding:10px 20px;
+    border:none;
+    background-color: #000;
+    color:#FFFFFF;
+    cursor: pointer;
+}
+
+.no-orders-container button:hover{
+    background-color: #FFFFFF;
+    color:black;
+    border:1px solid black;
+     transition: background-color 300ms;
+}
 
 @media screen and (max-width:767px){
     .orders-products-container{

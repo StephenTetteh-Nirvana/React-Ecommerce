@@ -3,6 +3,7 @@ import Order from "../components/Order.jsx"
 import "../css/Orders.css"
 import Navbar from "../components/Navbar"
 import GlobalState from "../GlobalState"
+import { Link } from "react-router-dom"
 
 const Orders = () => {
   const { fetchCurrentUserData } = useContext(GlobalState)
@@ -25,7 +26,12 @@ const Orders = () => {
             </div>
             
           ) : (
-            <h1>No Orders Yet</h1>
+            <div className="no-orders-container">
+              <h1>No Orders Yet</h1>
+              <Link to="/products">
+                <button>Start Shopping</button>
+              </Link>
+            </div>
           )
 
           }
