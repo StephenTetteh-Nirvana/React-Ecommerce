@@ -5,8 +5,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { getDoc,doc, updateDoc } from "firebase/firestore";
 import "../css/Checkout.css"
-import CartLoader from "../components/CartLoader";
 import Navbar from "../components/Navbar";
+import PaymentLoader from "../components/PaymentLoader.jsx";
 
 const Checkout = () => {
      const cart = localStorage.getItem("cart") !== null ? JSON.parse(localStorage.getItem("cart")) : []
@@ -45,9 +45,9 @@ const Checkout = () => {
           position:"top-center"
          })
       }else{
-        try{
           setLoading(true)
           onAuthStateChanged(auth,async(user)=>{
+            try{
             if(user){
               const uid = user.uid;
               const docRef = doc(db,"Users",uid)
@@ -61,7 +61,6 @@ const Checkout = () => {
                   order:newOrderArr,
                   cart:[]
                 })
-
                 setLoading(false)
                 localStorage.setItem("orders",JSON.stringify(orders))
                 toast.success("Order Completed Successfully",{
@@ -72,16 +71,15 @@ const Checkout = () => {
                 console.log("new order",newOrderArr)
               }
             }
+          }catch(error){
+            setLoading(false)
+            toast.error("Oops...An Error Occurred",{
+              autoClose:2000,
+              position:"top-center"
+            })
+            console.log(error)
+          } 
           })
-
-        }catch(error){
-          setLoading(false)
-          toast.error("Oops...An Error Occurred",{
-            autoClose:2000,
-            position:"top-center"
-          })
-          console.log(error)
-        } 
       }
   }
           
@@ -192,11 +190,19 @@ const Checkout = () => {
                             <p>${TotalAmount.toLocaleString()}.00</p>
                         </div>
                     </div>
-                   <button className="purchase-btn" onClick={completePurchase}>Pay ${TotalAmount.toLocaleString()}.00</button>
+                    <div>
+                    { loading ? (
+                      <PaymentLoader/>
+                    ) : (
+                      <button className="purchase-btn" onClick={()=>completePurchase()}>Pay ${TotalAmount.toLocaleString()}.00</button>
+                    )
+                    }
+                    </div>
+                    
+                 
                 </div>
                </section>
             </div>
-            {loading && <CartLoader/>}
           </div>
        ) : (
           <div className="no-checkout-container">

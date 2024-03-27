@@ -1,20 +1,19 @@
-.loading-btn-container{
+.payment-btn-container{
     width: 100%;
     margin-top:7px;
 }
-.loading-btn{
-    padding:6px;
-    width: 100%;
-    background-color: #2666CF;
+.payment-btn{
+    padding:7px;
+    width:90%;
+    background-color: #000;
     color:white;
-    border-radius:5px;
     font-size:18px;
     border:none;
     opacity:0.8;
     cursor:pointer;
 }
 
-.loading-btn div {
+.payment-btn div {
     width: 20px;
     height: 20px;
     margin: auto;
