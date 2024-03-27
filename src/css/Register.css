@@ -33,7 +33,6 @@ form input[type="text"]{
     appearance:none;
     padding:10px 30px;
     border-radius: 5px;
-    margin-top:10px;
     padding-left:10px;
 }
 form input[type="password"]{
@@ -42,8 +41,10 @@ form input[type="password"]{
     appearance:none;
     padding:10px 30px;
     border-radius:5px;
-    margin-top:10px;
     padding-left:10px;
+}
+form label{
+    margin-top:10px;
 }
 .register-btn{
     padding:8px;
@@ -58,6 +59,9 @@ form input[type="password"]{
 form h4{
     margin:auto;
     margin-top:10px;
+}
+.error{
+    border:1px solid red;
 }
 
 

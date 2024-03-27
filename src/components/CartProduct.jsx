@@ -3,7 +3,7 @@ import { db,auth } from "../firebase.js"
 import { onAuthStateChanged } from "firebase/auth"
 import { doc,getDoc,updateDoc } from "firebase/firestore"
 import { toast } from "react-toastify"
-import CartLoader from "../components/CartLoader.jsx"
+import Loader from "../components/Loader.jsx"
 import Delete from "../images/delete-icon.png"
 import GlobalState from "../GlobalState"
 import "../css/CartProduct.css"
@@ -150,7 +150,7 @@ const CartProduct = ({item}) => {
                     </div>
                 </div>
             </div>
-              { updateProduct && <CartLoader/>}
+              { updateProduct && <Loader/>}
               </div>
   )
 }

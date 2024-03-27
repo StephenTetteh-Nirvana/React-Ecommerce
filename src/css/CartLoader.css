@@ -42,13 +42,12 @@
 
   @media screen and (max-width:767px){
     .loader-wrapper{
-      height: 120vh;
+      min-height: 150vh;
     }
     .loader-wrapper div{
-      position: absolute;
-      top:50%;
-      left:45%;
-      transform:translate(-50%,-50%);
+     display:flex;
+     justify-content: center;
+     align-items: center;
     }
   }
 

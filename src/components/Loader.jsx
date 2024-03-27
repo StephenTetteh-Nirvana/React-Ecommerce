@@ -2,11 +2,12 @@ import "../css/Loader.css"
 
 const Loader = () => {
   return (
-      <div className="lds-ring">
-        <div></div><div></div><div></div><div></div>
-        <p>Please Wait</p>
-        </div>
-   
+    <div className="cart-loader-wrapper">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    </div>
   )
 }
 

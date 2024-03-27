@@ -7,6 +7,7 @@ import { collection,doc,setDoc } from "firebase/firestore"
 import "../css/Register.css"
 import { toast } from "react-toastify"
 import CartLoader from "../components/CartLoader.jsx"
+import AuthLoader from "../components/AuthLoader.jsx"
 
 
 const Register = () => {
@@ -104,7 +105,8 @@ const Register = () => {
     <div className="main">
         <form className="registerForm" onSubmit={(e)=>e.preventDefault()}>
           <h3>Sign Up</h3>
-
+          
+          <label>UserName</label>
           <input type="text" 
           placeholder="Username"  
           autoComplete="off"
@@ -112,6 +114,7 @@ const Register = () => {
           onChange={(e)=>setUserName(e.target.value)} 
           required/>
 
+         <label>E-mail</label>
          <input type="text" 
           placeholder="E-mail"  
           autoComplete="off"
@@ -119,6 +122,7 @@ const Register = () => {
           onChange={(e)=>setEmail(e.target.value)} 
           required/>
 
+          <label>Password</label>
           <input type="password" 
           placeholder="Password"  
           autoComplete="off" 
@@ -126,24 +130,23 @@ const Register = () => {
           onChange={(e)=>setPassword(e.target.value)}
           required/>
 
+          <label>Confirm Password</label>
           <input type="password" 
           placeholder="Confirm Password"  
           autoComplete="off" 
           value={passwordConfirm}
           onChange={(e)=>setPasswordConfirm(e.target.value)}
           required/>
-          <button className="register-btn" onClick={()=>RegisterUser()}>Register</button>
+          { loading ? (
+            <AuthLoader/>
+          ) : (
+            <button className="register-btn" onClick={()=>RegisterUser()}>Register</button>
+          )
+          }
           <h4>Already Have An Account?
           <span><Link to="/login">Login</Link></span>
           </h4>
         </form>
-
-        { loading ? (
-                    <CartLoader/>
-                ) : (
-                  console.log("Not Loading")
-                )}
-
     </div>
   )
 }
