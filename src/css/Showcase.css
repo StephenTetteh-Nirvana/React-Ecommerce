@@ -54,15 +54,14 @@
         margin-left:20px;
         z-index:30;
     }
-    .image-display-section img{
+    .image-display-section{
         display:none;
     }
-
 }
 
 @media screen and (max-width:1024px) and (min-width:767px){
     .showcase{
-        height:33vh;
+        height:40vh;
     }
     .text-display-section{
         margin-left:10px;

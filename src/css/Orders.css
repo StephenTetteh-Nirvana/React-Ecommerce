@@ -1,6 +1,10 @@
 .allOrders-container{
     padding-bottom:50px;
 }
+.allOrders-container h1{
+    margin-left:30px;
+    margin-top:20px;
+}
 .orders-products-container{
     display:grid;
     grid-template-columns: repeat(4,1fr);
