@@ -1,15 +1,16 @@
-import {useState,useEffect} from "react"
+import {useState,useEffect, useContext} from "react"
 import {Link} from "react-router-dom"
 import CloseCart from "../images/close-cart.png"
 import EmptyBag from "../images/empty-bag.png"
 import CartProduct from "../components/CartProduct.jsx"
 import "../css/Cart.css"
+import GlobalState from "../GlobalState.js"
 
 
 
 const Cart = ({setDisplayCart}) => {
   const [closeCart,setCloseCart] = useState(false) 
-  const cart = localStorage.getItem("cart") !== null ? JSON.parse(localStorage.getItem("cart")) : []
+  const { cart } = useContext(GlobalState)
   const [TotalAmount,setTotalAmount] = useState(0)
 
   const toggleClose = () =>{

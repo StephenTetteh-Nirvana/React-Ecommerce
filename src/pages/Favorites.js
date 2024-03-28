@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom"
+import { useContext } from "react"
+import GlobalState from "../GlobalState.js"
 import noFavorites from "../images/no-favorites.png"
 import Navbar from "../components/Navbar"
 import FavoriteProduct from "../components/FavoriteProduct.jsx"
 import "../css/Favorites.css"
 
 const Favorites = () => {
-  const favorites = localStorage.getItem("favorites") !== null ?  JSON.parse(localStorage.getItem("favorites")):[];
+
+  const { favorites } = useContext(GlobalState)
 
   return (
     <div>
@@ -31,9 +34,7 @@ const Favorites = () => {
             }
             </div>
            
-        )
-
-        }
+        )}
       </div>
     </div>
   )

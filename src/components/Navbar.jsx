@@ -10,20 +10,12 @@ import GlobalState from "../GlobalState.js"
 
 const Navbar = () => {
   const [displayCart,setDisplayCart] = useState(false)
-  const cart = localStorage.getItem("cart") !== null ?  JSON.parse(localStorage.getItem("cart")):[];
-  const {fetchCurrentUser,fetchCurrentUserData,fetchFavorites } = useContext(GlobalState)
+  const {cart} = useContext(GlobalState)
 
   const toggleCart = () =>{
      setDisplayCart(!displayCart)
   }
 
-  
-
-  useEffect(()=>{
-    fetchCurrentUser()
-    fetchFavorites()
-    fetchCurrentUserData()
-  },[])
 
   return (
   
