@@ -84,9 +84,7 @@ const ProductPage = () => {
               Vivamus ac mauris tortor.
             </p>
             <h1 className="product-price">${product.price}.00</h1>
-  
             <div className="product-info-section-two">
-              
               <div className="quantity-box">
               <label className="quantity-heading">Quantity:</label><br/>
               <button className="quantity-minus-button"  onClick={()=>decreaseQuantityValue()}>-</button>

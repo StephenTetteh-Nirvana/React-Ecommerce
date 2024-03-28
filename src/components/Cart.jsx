@@ -9,7 +9,7 @@ import "../css/Cart.css"
 
 const Cart = ({setDisplayCart}) => {
   const [closeCart,setCloseCart] = useState(false) 
-  const cart = localStorage.getItem("cart") !== null ? JSON.parse(localStorage.getItem("cart")):[]
+  const cart = localStorage.getItem("cart") !== null ? JSON.parse(localStorage.getItem("cart")) : []
   const [TotalAmount,setTotalAmount] = useState(0)
 
   const toggleClose = () =>{

@@ -6,8 +6,6 @@ import "../css/CartProduct.css"
 
 const CartProduct = ({item}) => {
 
-    const cart = localStorage.getItem("cart") !== null ?  JSON.parse(localStorage.getItem("cart")):[];
-
     const {increaseProductQuantity,decreaseProductQuantity,deleteFromCart } = useContext(GlobalState)
                  
 

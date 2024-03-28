@@ -1,7 +1,8 @@
-import { createContext,useState } from "react"
+import { createContext,useEffect,useState } from "react"
 import { db,auth } from "./firebase.js"
 import { collection, doc, getDoc, getDocs } from "firebase/firestore"
 import { onAuthStateChanged } from "firebase/auth";
+import { toast } from "react-toastify";
 
 const GlobalState = createContext();
 
@@ -12,7 +13,6 @@ export const CartProvider = ({children}) =>{
      const [favorites,setFavorites] = useState([])
      const [allProducts,setallProducts] = useState([])
      const [loadedProducts,setloadedProducts] = useState(false)
-     const [loading,setLoading] = useState(false)
 
 
      const fetchProducts = async () => {
@@ -139,9 +139,12 @@ export const CartProvider = ({children}) =>{
       quantity:quantity
     }
     const updated = [...cart,newItem]
-    console.log(cart)
     setCart(updated)
     localStorage.setItem("cart",JSON.stringify(updated))
+    toast.success(`${name} Added`,{
+      autoClose:1000,
+      position:"top-center"
+    })
   }
 
 
@@ -152,7 +155,6 @@ export const CartProvider = ({children}) =>{
       }
       return item;
     });
-  
     setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
@@ -172,8 +174,12 @@ export const CartProvider = ({children}) =>{
     const updatedCart = cart.filter((p) => p.id !== productId)
     setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
-     
   }
+
+  useEffect(()=>{
+    const cart = localStorage.getItem("cart") !== null ? JSON.parse(localStorage.getItem("cart")) : []
+    setCart(cart)
+  },[])
 
       
 
@@ -192,8 +198,8 @@ export const CartProvider = ({children}) =>{
         fetchProducts,
         fetchCurrentUserData,
         fetchCurrentUser,
-        allProducts,
-        loading}}>
+        allProducts
+        }}>
             {children}
         </GlobalState.Provider>
     )
