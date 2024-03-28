@@ -1,9 +1,7 @@
 import { createContext,useState } from "react"
-import { toast } from "react-toastify"
 import { db,auth } from "./firebase.js"
-import { collection, doc, getDoc, getDocs, updateDoc } from "firebase/firestore"
+import { collection, doc, getDoc, getDocs } from "firebase/firestore"
 import { onAuthStateChanged } from "firebase/auth";
-import Swal from "sweetalert2";
 
 const GlobalState = createContext();
 
@@ -98,49 +96,18 @@ export const CartProvider = ({children}) =>{
           })
       }
 
-      const addToFavorites = (id,image,name,price) => {
-          onAuthStateChanged(auth,async (user)=>{
-            if(user){
-              try{
-              setLoading(true)
-              const uid = user.uid;
-              const userDocRef = doc(db,"Users",uid)
-              const userDoc = await getDoc(userDocRef)
-              
-              if(userDoc.exists()){
-                const favoriteData = userDoc.data().favorites;
-                  const newFavorite = {
-                    id:id,
-                    image:image,
-                    name:name,
-                    price:price,
-                  }
-                  favoriteData.push(newFavorite)
-                  await updateDoc(userDocRef,{favorites: favoriteData})
-                  setLoading(false)
-                  toast.success("Added To Favorites",{
-                    autoClose:1200
-                  })
-                  fetchCurrentUserData()
-              }
-            }catch(error){
-             setLoading(false)
-             toast.error("Connect To The Internet",{
-              autoClose:2000,
-              position:"top-center"
-             })
-             console.log(error)
-            } 
-          }else{
-            setLoading(false)
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'Please create an account first!'
-              })
-           }
-      })
-    }
+      const addToFavorites = (productId,image,name,price,quantity) => {
+        const newItemFavorite = {
+          id:productId,
+          image:image,
+          name:name,
+          price:price,
+          quantity:quantity
+        }
+        const updated = [...cart,newItemFavorite]
+        setFavorites(updated)
+        localStorage.setItem("favorites",JSON.stringify(updated))
+      }
 
       const fetchFavorites = () =>{
           onAuthStateChanged(auth,async(user)=>{
@@ -163,56 +130,70 @@ export const CartProvider = ({children}) =>{
 }
 
      
-     const addToCart = (id,image,name,price,quantity) => {
-        onAuthStateChanged(auth,async (user)=>{
-          try{
-            setLoading(true)
-            if(user){
-            const uid = user.uid;
-            const userDocRef = doc(db,"Users",uid)
-            const userDoc = await getDoc(userDocRef)
-            
-            if(userDoc.exists()){
-              const cartData = userDoc.data().cart;
-                const newItem = {
-                  id:id,
-                  image:image,
-                  name:name,
-                  price:price,
-                  quantity:quantity
-                }
-                cartData.push(newItem)
-                await updateDoc(userDocRef,{cart: cartData})
-                setCart([...cart,{cartData}])
-                setLoading(false)
-                toast.success("Item Added Successfully",{
-                  autoClose:1200
-                })
-                fetchCurrentUserData()
-            }
-          }else{
-            setLoading(false)
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'Please create an account first!'
-              })
-           }
-          }catch(error){
-            toast.error("Connect To The Internet",{
-              autoClose:2000,
-              position:"top-center"
-             })
-            setLoading(false)
-            console.log(error)
-          }
-        })
+  const addToCart = (productId,image,name,price,quantity) => {
+    const newItem = {
+      id:productId,
+      image:image,
+      name:name,
+      price:price,
+      quantity:quantity
+    }
+    const updated = [...cart,newItem]
+    console.log(cart)
+    setCart(updated)
+    localStorage.setItem("cart",JSON.stringify(updated))
+  }
+
+
+  const increaseProductQuantity = (productId) => {
+    const updatedCart = cart.map((item) => {
+      if (item.id === productId) {
+        item.quantity += 1;
       }
+      return item;
+    });
+  
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
+
+  const decreaseProductQuantity = (productId) => {
+    const updatedCart = cart.map((item) => {
+      if (item.id === productId) {
+       item.quantity > 1 ? item.quantity -= 1 : "";
+      }
+      return item;
+    });
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
+
+  const deleteFromCart = (productId) => {
+    const updatedCart = cart.filter((p) => p.id !== productId)
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+     
+  }
 
       
 
     return(
-        <GlobalState.Provider value={{userObj,cart,setCart,setFavorites,setOrders,favorites,addToCart,addToFavorites,fetchFavorites,fetchProducts,fetchCurrentUserData,fetchCurrentUser,allProducts,loading}}>
+        <GlobalState.Provider value={{
+        userObj,
+        setCart,
+        setFavorites,
+        setOrders,
+        addToCart,
+        increaseProductQuantity,
+        decreaseProductQuantity,
+        deleteFromCart,
+        addToFavorites,
+        fetchFavorites,
+        fetchProducts,
+        fetchCurrentUserData,
+        fetchCurrentUser,
+        allProducts,
+        loading}}>
             {children}
         </GlobalState.Provider>
     )

@@ -8,10 +8,13 @@ import GlobalState from "../GlobalState";
 
 const ProductPage = () => {
     const { id } = useParams()
+    const cart = localStorage.getItem("cart") !== null ?  JSON.parse(localStorage.getItem("cart")):[];
+    const favorites = localStorage.getItem("favorites") !== null ?  JSON.parse(localStorage.getItem("favorites")):[];
     const allProducts = localStorage.getItem("Products") !== null ?  JSON.parse(localStorage.getItem("Products")):[];
     const product = allProducts.find((p) => p.id === id)
 
-    const {cart,favorites,addToFavorites,addToCart,loading} = useContext(GlobalState)
+
+    const {addToFavorites,loading,addToCart} = useContext(GlobalState)
     const [currentIndex,setCurrentIndex] = useState(0)
     const [quantity,setQuantity] = useState(1)
     const [ExistingProduct,setExistingProduct] = useState(false) 
@@ -34,6 +37,7 @@ const ProductPage = () => {
         setLikedProduct(false)
       }
   }
+
 
     const increaseQuantityValue = () =>{
       let newQuantity = quantity + 1;
