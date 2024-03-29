@@ -85,8 +85,8 @@ export const CartProvider = ({children}) =>{
       localStorage.setItem("favorites", JSON.stringify(updated));
     }
 
-
     
+
     const addToCart = (productId,image,name,price,quantity) => {
       const newItem = {
         id:productId,
