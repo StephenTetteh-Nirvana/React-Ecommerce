@@ -120,7 +120,9 @@ export const CartProvider = ({children}) =>{
     const decreaseProductQuantity = (productId) => {
       const updatedCart = cart.map((item) => {
         if (item.id === productId) {
-        item.quantity > 1 ? item.quantity -= 1 : item.quantity;
+          if(item.quantity > 1 ){
+            item.quantity -= 1;  
+          }
         }
         return item;
       });
