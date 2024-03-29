@@ -6,13 +6,9 @@ import GlobalState from "../GlobalState"
 import { Link } from "react-router-dom"
 
 const Orders = () => {
-  const { fetchCurrentUserData } = useContext(GlobalState)
 
   const orders =  localStorage.getItem("orders") !== null ? JSON.parse(localStorage.getItem("orders")) : []
 
-  useEffect(()=>{
-       fetchCurrentUserData()
-  },[])
   return (
     <div> 
         <Navbar/>

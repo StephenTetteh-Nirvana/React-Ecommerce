@@ -1,15 +1,19 @@
 import { Link,useNavigate } from "react-router-dom";
 import { toast } from "react-toastify"
-import { useState,useEffect } from "react";
+import { useState,useEffect, useContext } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { getDoc,doc, updateDoc } from "firebase/firestore";
 import "../css/Checkout.css"
 import Navbar from "../components/Navbar";
 import PaymentLoader from "../components/PaymentLoader.jsx";
+import GlobalState from "../GlobalState.js";
 
 const Checkout = () => {
-     const cart = localStorage.getItem("cart") !== null ? JSON.parse(localStorage.getItem("cart")) : []
+  const cart = localStorage.getItem("cart") !== null ? JSON.parse(localStorage.getItem("cart")) : []
+     
+
+     const { setCart } = useContext(GlobalState)
      const navigate = useNavigate();
      const [orders,setOrders] = useState([])
      const [loading,setLoading] = useState(false)
@@ -54,15 +58,16 @@ const Checkout = () => {
               const userDoc = await getDoc(docRef)
 
               if(userDoc.exists){
-                const cartData = userDoc.data().cart
-                const orderData = userDoc.data().order
-                const newOrderArr = [...orderData,...cartData]
+                const orderData = userDoc.data().order;
+                const newOrderArr = [...orderData,...cart]
                 await updateDoc(docRef,{
                   order:newOrderArr,
-                  cart:[]
                 })
+                setOrders([...newOrderArr])
+                localStorage.setItem("orders",JSON.stringify(newOrderArr))
+                setCart([])
+                localStorage.setItem("cart",JSON.stringify([]))
                 setLoading(false)
-                localStorage.setItem("orders",JSON.stringify(orders))
                 toast.success("Order Completed Successfully",{
                   autoClose:2500,
                   position:"top-center"
