@@ -235,7 +235,7 @@ const Register = () => {
             <button 
                 className={`register-btn ${disabled ? "disabled" : ""}`} 
                 disabled={disabled} 
-                onClick={()=>RegisterUser()}>Register</button> 
+                onClick={RegisterUser}>Register</button> 
           )
           }
           <h4>Already Have An Account?

@@ -87,12 +87,12 @@ const ProductPage = () => {
             <div className="product-info-section-two">
               <div className="quantity-box">
               <label className="quantity-heading">Quantity:</label><br/>
-              <button className="quantity-minus-button"  onClick={()=>decreaseQuantityValue()}>-</button>
+              <button className="quantity-minus-button"  onClick={decreaseQuantityValue}>-</button>
               <input type="text" 
               value={quantity}
               onChange={(e)=>setQuantity(e.target.value)}
               />
-              <button className="quantity-plus-button" onClick={()=>increaseQuantityValue()}>+</button>
+              <button className="quantity-plus-button" onClick={increaseQuantityValue}>+</button>
               </div>
 
               <div className="buttons-box">

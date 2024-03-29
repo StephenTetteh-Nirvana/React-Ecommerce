@@ -206,7 +206,7 @@ const Checkout = () => {
                     { loading ? (
                       <PaymentLoader/>
                     ) : (
-                      <button className="purchase-btn" onClick={()=>completePurchase()}>Pay ${TotalAmount.toLocaleString()}.00</button>
+                      <button className="purchase-btn" onClick={completePurchase}>Pay ${TotalAmount.toLocaleString()}.00</button>
                     )
                     }
                     </div>

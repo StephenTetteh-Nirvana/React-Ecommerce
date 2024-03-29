@@ -106,7 +106,7 @@ const Login = () => {
               {loading ? (
               <AuthLoader/>
               ) : (
-                <button className="submit-btn" onClick={()=>LoginUser()}>Login</button> 
+                <button className="submit-btn" onClick={LoginUser}>Login</button> 
               )}
               
               <h4>Don't Have An Account?

@@ -77,7 +77,7 @@ const UserCard = () => {
 
         </div>
           { isLoggedIn ? (
-            <button className="logout-btn" onClick={()=>LogOut()}>LogOut</button>
+            <button className="logout-btn" onClick={LogOut}>LogOut</button>
                  
           ) : (
             <Link to="/login">
