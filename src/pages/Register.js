@@ -97,7 +97,7 @@ const Register = () => {
         try{
           setLoading(true)
           await createUserWithEmailAndPassword(auth,email,password)
-          onAuthStateChanged(auth,async(user)=>{
+          const user = auth.currentUser;
             if(user){
               const colRef = collection(db,"Users")
               const userDoc = doc(colRef,user.uid)
@@ -115,7 +115,6 @@ const Register = () => {
             setEmail('')
             setPassword('')
             setPasswordConfirm('')
-          })
         }
         catch(error){
           console.log(error)

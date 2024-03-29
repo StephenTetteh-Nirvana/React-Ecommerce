@@ -1,7 +1,6 @@
 import { Link,useNavigate } from "react-router-dom";
 import { toast } from "react-toastify"
 import { useState,useEffect, useContext } from "react";
-import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { getDoc,doc, updateDoc } from "firebase/firestore";
 import "../css/Checkout.css"
@@ -14,9 +13,8 @@ const Checkout = () => {
   const cart = localStorage.getItem("cart") !== null ? JSON.parse(localStorage.getItem("cart")) : []
      
 
-     const { setCart } = useContext(GlobalState)
+     const { setCart,setOrders } = useContext(GlobalState)
      const navigate = useNavigate();
-     const [orders,setOrders] = useState([])
      const [loading,setLoading] = useState(false)
      const [TotalAmount,setTotalAmount] = useState(0)
      const [email,setEmail] = useState("")
@@ -42,57 +40,59 @@ const Checkout = () => {
   useEffect(()=>{
     totalAmount()
   },[])
+  
 
-  const completePurchase = async () =>{
-      if(email === "" || (cardDetails === "" || expDate === "" || cvc === "" || fullName === "")){
-         toast.error("Complete The Form",{
-          autoClose:1500,
+  const completePurchase = async () => {
+    try {
+      if (email === "" || cardDetails === "" || expDate === "" || cvc === "" || fullName === "") {
+        toast.error("Complete The Form", {
+          autoClose: 1500,
           position:"top-center"
-         })
-      }else{
-          onAuthStateChanged(auth,async(user)=>{
-            try{
-            if(user){
-              setLoading(true)
-              const uid = user.uid;
-              const docRef = doc(db,"Users",uid)
-              const userDoc = await getDoc(docRef)
-
-              if(userDoc.exists){
-                const orderData = userDoc.data().order;
-                const newOrderArr = [...orderData,...cart]
-                await updateDoc(docRef,{
-                  order:newOrderArr,
-                })
-                setOrders([...newOrderArr])
-                localStorage.setItem("orders",JSON.stringify(newOrderArr))
-                setCart([])
-                localStorage.setItem("cart",JSON.stringify([]))
-                setLoading(false)
-                toast.success("Order Completed Successfully",{
-                  autoClose:2500,
-                  position:"top-center"
-                })
-                navigate("/orders")
-                console.log("new order",newOrderArr)
-              }
-            }else{
-              Swal.fire({
-                title: "Oops...",
-                text: "You need an account to proceed",
-                icon: "error"
-              });
-            }
-          }catch(error){
-            setLoading(false)
-            toast.error("Oops...An Error Occurred",{
-              autoClose:2000,
-              position:"top-center"
-            })
-            console.log(error)
-          } 
-          })
+        });
+        return;
       }
+  
+      const user = auth.currentUser;
+      if (user) {
+        setLoading(true);
+        const uid = user.uid;
+        const docRef = doc(db, "Users", uid);
+        const userDoc = await getDoc(docRef);
+  
+        if (userDoc.exists) {
+          const orderData = userDoc.data().order;
+          const newOrderArr = [...orderData, ...cart];
+          await updateDoc(docRef, {
+            order: newOrderArr,
+          });
+  
+          setOrders(newOrderArr);
+          localStorage.setItem("orders", JSON.stringify(newOrderArr));
+          setCart([]);
+          localStorage.setItem("cart", JSON.stringify([]));
+          setLoading(false);
+          toast.success("Order Completed", {
+            autoClose: 2500,
+            position: "top-center"
+          });
+          navigate("/orders");
+          console.log("new order", newOrderArr);
+        }
+      } else {
+        Swal.fire({
+          title: "Oops...",
+          text: "You need an account to proceed",
+          icon: "error"
+        });
+      }
+    } catch (error) {
+      setLoading(false);
+      toast.error("Oops...An Error Occurred", {
+        autoClose: 2000,
+        position: "top-center"
+      });
+      console.log(error);
+    }
   }
           
 
@@ -206,7 +206,9 @@ const Checkout = () => {
                     { loading ? (
                       <PaymentLoader/>
                     ) : (
-                      <button className="purchase-btn" onClick={completePurchase}>Pay ${TotalAmount.toLocaleString()}.00</button>
+                      <button 
+                      className="purchase-btn" 
+                      onClick={completePurchase}>Pay ${TotalAmount.toLocaleString()}.00</button>
                     )
                     }
                     </div>

@@ -26,7 +26,7 @@ const FavoriteProduct = ({product}) => {
         </div>
 
         <div className="product-buttons-box">
-           <button className="remove-btn" onClick={()=> deleteFromFavorites(product.id)}>Remove</button>
+           <button className="remove-btn" onClick={()=>deleteFromFavorites(product.id)}>Remove</button>
         </div>
     </div>
   )

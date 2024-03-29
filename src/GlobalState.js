@@ -43,8 +43,8 @@ export const CartProvider = ({children}) =>{
       }
     }
 
-    const fetchCurrentUser = () =>{
-      onAuthStateChanged(auth,async (user)=>{
+    const fetchCurrentUser = async () =>{
+      const user = auth.currentUser
         if(user){
           try{
             const uid = user.uid;
@@ -67,7 +67,6 @@ export const CartProvider = ({children}) =>{
       }else{
       console.log("No User")
       }
-      })
   }
 
     const addToFavorites = (productId,image,name,price,quantity) => {
@@ -151,6 +150,7 @@ export const CartProvider = ({children}) =>{
     return(
         <GlobalState.Provider value={{
         userObj,
+        setuserObj,
         cart,
         setCart,
         setOrders,

@@ -21,11 +21,13 @@ const Login = () => {
         autoClose:1500,
         position:"top-center"
       })
-    }else{
-    try{
+      return;
+    }
+
+     try{
       setLoading(true)
       await signInWithEmailAndPassword(auth,email,password)
-      onAuthStateChanged(auth,async (user)=>{
+        const user = auth.currentUser;
         if(user){
           const userDocRef = doc(db,"Users",user.uid)
           const userDoc = await getDoc(userDocRef) 
@@ -40,7 +42,6 @@ const Login = () => {
           setPassword('')
           navigate("/products")
         }
-      })
     }
     catch(error){
       console.log(error)
@@ -80,7 +81,7 @@ const Login = () => {
     
   }
 }
-}
+
   
   return (
     <div className="main">

@@ -1,8 +1,6 @@
-import { useContext, useEffect } from "react"
 import Order from "../components/Order.jsx"
 import "../css/Orders.css"
 import Navbar from "../components/Navbar"
-import GlobalState from "../GlobalState"
 import { Link } from "react-router-dom"
 
 const Orders = () => {

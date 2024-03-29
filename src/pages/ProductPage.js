@@ -1,7 +1,6 @@
 import { useParams,Link } from "react-router-dom"
 import { useContext, useEffect, useState } from "react";
 import Navbar from "../components/Navbar"
-import CartLoader from "../components/CartLoader";
 import "../css/ProductPage.css"
 import Liked from "../images/product-favorite-red.png"
 import GlobalState from "../GlobalState";
@@ -14,7 +13,7 @@ const ProductPage = () => {
     const product = allProducts.find((p) => p.id === id)
 
 
-    const {addToFavorites,loading,addToCart} = useContext(GlobalState)
+    const {addToFavorites,addToCart} = useContext(GlobalState)
     const [currentIndex,setCurrentIndex] = useState(0)
     const [quantity,setQuantity] = useState(1)
     const [ExistingProduct,setExistingProduct] = useState(false) 
@@ -111,8 +110,6 @@ const ProductPage = () => {
               ) : (
                 <button className="add-btn" onClick={()=>addToCart(product.id,product.images[0],product.name,product.price,quantity)}>Add To Cart</button>
               )}
-
-              {loading && <CartLoader/>}
               
               </div>
              
