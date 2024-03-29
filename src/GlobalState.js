@@ -98,7 +98,7 @@ export const CartProvider = ({children}) =>{
       const updated = [...cart,newItem]
       setCart(updated)
       localStorage.setItem("cart",JSON.stringify(updated))
-      toast.success(`${name} Added`,{
+      toast.success(`${quantity} ${name} Added`,{
         autoClose:1000,
         position:"top-center"
       })
@@ -119,7 +119,7 @@ export const CartProvider = ({children}) =>{
     const decreaseProductQuantity = (productId) => {
       const updatedCart = cart.map((item) => {
         if (item.id === productId) {
-        item.quantity > 1 ? item.quantity -= 1 : "";
+        item.quantity > 1 ? item.quantity -= 1 : item.quantity;
         }
         return item;
       });
