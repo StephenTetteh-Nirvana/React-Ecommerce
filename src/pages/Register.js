@@ -6,7 +6,6 @@ import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/aut
 import { collection,doc,setDoc } from "firebase/firestore"
 import "../css/Register.css"
 import { toast } from "react-toastify"
-import CartLoader from "../components/CartLoader.jsx"
 import AuthLoader from "../components/AuthLoader.jsx"
 
 
@@ -16,8 +15,74 @@ const Register = () => {
   const [password,setPassword] = useState('')
   const [passwordConfirm,setPasswordConfirm] = useState('')
   const [loading,setLoading] = useState(false)
+  const [disabled,setDisabled] = useState(true)
+  const [passwordStrength, setPasswordStrength] = useState('');
+  const [confirmPasswords,setConfirmPasswords] = useState('')
+  const [validEmail,setValidEmail] = useState('')
 
   const navigate = useNavigate()
+
+  const checkEmailValidity = (emailValue) =>{
+    if(emailValue === ""){
+     setValidEmail('')
+    }else if(emailValue.includes("@gmail.com")){
+      setValidEmail("Valid Email")
+    }else{
+      setValidEmail("Invalid Email(eg.stephen22@gmail.com)")
+    }
+  }
+
+  const handleEmailChange = (e)=>{
+    const emailValue = e.target.value;
+    setEmail(emailValue)
+    checkEmailValidity(emailValue);
+  }
+
+  const checkPasswordStrength = (value) => {
+    if (value === '') {
+      setPasswordStrength('');
+      setDisabled(true)
+    } else if (value.length < 6 ) {
+      setPasswordStrength('Weak Password');
+      setDisabled(true)
+    } else {
+      if (email.includes("@gmail.com") && password.length >= 5) {
+        setDisabled(false);
+      }
+      setPasswordStrength('Strong Password');
+    }
+  };
+
+  const handlePasswordChange = (e) => {
+    const value = e.target.value;
+    setPassword(value);
+    checkPasswordStrength(value);
+  };
+
+
+  const checkPasswordConfirm = (value) =>{
+    if (value === ''){
+      setConfirmPasswords(" ")
+    }
+    else if( value !== password ) {
+      setDisabled(true)
+      setConfirmPasswords("Passwords don't match")
+      console.log("not equal")
+      setPasswordConfirm(value)
+    }
+    else{
+      setDisabled(false)
+      setConfirmPasswords("Passwords Match")
+    }
+  }
+
+  const handlePasswordConfirm = (e) => {
+    const value = e.target.value;
+    setPasswordConfirm(value);
+    checkPasswordConfirm(value)
+  };
+
+
 
   const RegisterUser = async () => {
     if (userName === "" || (email === "" || password === "" || passwordConfirm === "")) {
@@ -38,9 +103,7 @@ const Register = () => {
               const userDoc = doc(colRef,user.uid)
               await setDoc(userDoc,{
                 userName:userName,
-                cart: [],
-                order: [],
-                favorites: []
+                order: []
               })
               toast.success("Account created succesfully",{
                 autoClose:1000,
@@ -67,7 +130,13 @@ const Register = () => {
                   autoClose:2000,
                   position:"top-center"
                 })
-              } else if (error.code === 'auth/wrong-password') {
+              }else if (error.code === 'auth/email-already-in-use') {
+                toast.error("Email Already Exists",{
+                  autoClose:2000,
+                  position:"top-center"
+                })
+              }
+               else if (error.code === 'auth/wrong-password') {
                 toast.error("Incorrect Password",{
                   autoClose:2000,
                   position:"top-center"
@@ -111,36 +180,62 @@ const Register = () => {
           placeholder="Username"  
           autoComplete="off"
           value={userName}
+          className="register-userName-input"
           onChange={(e)=>setUserName(e.target.value)} 
           required/>
 
-         <label>E-mail</label>
-         <input type="text" 
-          placeholder="E-mail"  
-          autoComplete="off"
+          <label>E-mail</label>
+          <input type="text" 
+          placeholder="Email"
+          className={`register-email-input ${validEmail === "Invalid Email(eg.stephen22@gmail.com)" ? "error" : ""}`}
           value={email}
-          onChange={(e)=>setEmail(e.target.value)} 
+          onChange={handleEmailChange}
+          autoComplete="off" 
           required/>
+          {validEmail && 
+          <span className={validEmail === "Invalid Email(eg.stephen22@gmail.com)" ? "invalid-email": ""} >
+          {validEmail === "Invalid Email(eg.stephen22@gmail.com)" ? 
+          "Invalid Email(eg.stephen22@gmail.com)": ""
+          }
+          </span>
+          }
 
           <label>Password</label>
           <input type="password" 
-          placeholder="Password"  
-          autoComplete="off" 
-          value={password}
-          onChange={(e)=>setPassword(e.target.value)}
-          required/>
+            placeholder="Password"
+            className={`register-password-input ${passwordStrength === "Weak Password" ? "error" :
+            passwordStrength === "Strong Password" ? "success" : ""}`} 
+            autoComplete="off" 
+            value={password}
+            onChange={handlePasswordChange}
+            required/>
+            {passwordStrength && 
+              <span className={passwordStrength === "Weak Password" ? "weak-password-span" :
+              passwordStrength === "Strong Password" ? "strong-password-span" : ""}>{passwordStrength}</span>
+            }
 
           <label>Confirm Password</label>
           <input type="password" 
           placeholder="Confirm Password"  
           autoComplete="off" 
           value={passwordConfirm}
-          onChange={(e)=>setPasswordConfirm(e.target.value)}
+          className={`register-passwordConfirm-input ${confirmPasswords === "Passwords don't match" ? "error" : 
+          confirmPasswords === "Passwords Match" ? "success" : ""}`}
+          onChange={handlePasswordConfirm}
           required/>
+          { confirmPasswords && 
+           <span className={confirmPasswords === "Passwords don't match" ? "no-match" : 
+           confirmPasswords === "Passwords Match" ? "match" : ""}>{confirmPasswords}</span>
+          }
+
+
           { loading ? (
             <AuthLoader/>
           ) : (
-            <button className="register-btn" onClick={()=>RegisterUser()}>Register</button>
+            <button 
+                className={`register-btn ${disabled ? "disabled" : ""}`} 
+                disabled={disabled} 
+                onClick={()=>RegisterUser()}>Register</button> 
           )
           }
           <h4>Already Have An Account?

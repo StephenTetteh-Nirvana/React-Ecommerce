@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import "../css/Login.css"
 import { toast } from "react-toastify"
 import { Link, useNavigate } from "react-router-dom"
@@ -14,8 +14,9 @@ const Login = () => {
 
   const navigate = useNavigate()
 
+
   const LoginUser = async() =>{
-    if(email === "" && password === "" ){
+    if(email === "" || password === "" ){
       toast.error("Complete the form",{
         autoClose:1500,
         position:"top-center"
@@ -71,7 +72,7 @@ const Login = () => {
           })
         }
         else {
-          toast.error("Please check your internet connection",{
+          toast.error("Check your internet connection",{
             autoClose:2000,
             position:"top-center"
           })
@@ -87,25 +88,26 @@ const Login = () => {
               <h3>Sign In</h3>
 
               <input type="text" 
-              placeholder="Email" 
+              placeholder="Email"
+              className="login-email-input"
               value={email}
               onChange={(e)=>setEmail(e.target.value)}
               autoComplete="off" 
               required/>
 
               <input type="password" 
-              placeholder="Password" 
+              placeholder="Password"
+              className="login-password-input"
               autoComplete="off" 
               value={password}
               onChange={(e)=>setPassword(e.target.value)}
               required/>
-              { loading ? (
+  
+              {loading ? (
               <AuthLoader/>
               ) : (
                 <button className="submit-btn" onClick={()=>LoginUser()}>Login</button> 
-              )
-
-              }
+              )}
               
               <h4>Don't Have An Account?
                 <span><Link to="/register">Register</Link></span>

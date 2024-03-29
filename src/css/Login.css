@@ -27,7 +27,7 @@ form h3{
     text-transform: uppercase;
     font-weight:bold;
 }
-form input[type="text"]{
+.login-email-input{
     border:1px solid grey;
     outline:none;
     appearance:none;
@@ -36,7 +36,7 @@ form input[type="text"]{
     margin-top:10px;
     padding-left:10px;
 }
-form input[type="password"]{
+.login-password-input{
     border:1px solid grey;
     outline:none;
     appearance:none;

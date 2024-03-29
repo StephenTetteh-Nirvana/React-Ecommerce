@@ -27,7 +27,7 @@ form h3{
     text-transform: uppercase;
     font-weight:bold;
 }
-form input[type="text"]{
+.register-userName-input,.register-email-input{
     border:1px solid grey;
     outline:none;
     appearance:none;
@@ -35,7 +35,7 @@ form input[type="text"]{
     border-radius: 5px;
     padding-left:10px;
 }
-form input[type="password"]{
+.register-password-input,.register-passwordConfirm-input{
     border:1px solid grey;
     outline:none;
     appearance:none;
@@ -60,8 +60,21 @@ form h4{
     margin:auto;
     margin-top:10px;
 }
+.disabled{
+    opacity:0.4;
+    cursor:none;
+}
 .error{
     border:1px solid red;
+}
+.success{
+    border:1px solid green; 
+}
+.strong-password-span,.valid-email,.match{
+    color:green;
+}
+.weak-password-span,.invalid-email,.no-match{
+    color:red;
 }
 
 
