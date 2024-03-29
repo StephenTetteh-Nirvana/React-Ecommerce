@@ -8,6 +8,7 @@ import "../css/Checkout.css"
 import Navbar from "../components/Navbar";
 import PaymentLoader from "../components/PaymentLoader.jsx";
 import GlobalState from "../GlobalState.js";
+import Swal from "sweetalert2";
 
 const Checkout = () => {
   const cart = localStorage.getItem("cart") !== null ? JSON.parse(localStorage.getItem("cart")) : []
@@ -49,10 +50,10 @@ const Checkout = () => {
           position:"top-center"
          })
       }else{
-          setLoading(true)
           onAuthStateChanged(auth,async(user)=>{
             try{
             if(user){
+              setLoading(true)
               const uid = user.uid;
               const docRef = doc(db,"Users",uid)
               const userDoc = await getDoc(docRef)
@@ -75,6 +76,12 @@ const Checkout = () => {
                 navigate("/orders")
                 console.log("new order",newOrderArr)
               }
+            }else{
+              Swal.fire({
+                title: "Oops...",
+                text: "You need an account to proceed",
+                icon: "error"
+              });
             }
           }catch(error){
             setLoading(false)

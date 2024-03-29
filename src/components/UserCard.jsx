@@ -15,7 +15,7 @@ const UserCard = () => {
   const orders = localStorage.getItem("orders") !== null ? JSON.parse(localStorage.getItem("orders")) : []
   const [isLoggedIn,setIsLoggedIn] = useState(false)
 
-  const { userObj,fetchCurrentUser,setCart,setFavorites,setOrders } = useContext(GlobalState)
+  const { userObj,fetchCurrentUser,setOrders} = useContext(GlobalState)
 
   const navigate = useNavigate()
 
@@ -30,17 +30,16 @@ const UserCard = () => {
   const LogOut = async () =>{
     try{
       await signOut(auth)
-      setCart([])
-      setFavorites([])
       setOrders([])
-      localStorage.setItem("cart",JSON.stringify([]))
-      localStorage.setItem("favorites",JSON.stringify([]))
       localStorage.setItem("orders",JSON.stringify([]))
       toast.success("You Logged Out",{
         autoClose:1000
       })
       navigate("/login")
     }catch(error){
+      toast.error("Connect To The Internet",{
+        autoClose:1500
+      })
       console.log(error)
     }
   }
@@ -56,7 +55,7 @@ const UserCard = () => {
         <div className="user-card">
             <div className="user-image-section">
                 <img src={User} alt="user"/>
-                <h1>Hello,{userObj.userName}</h1>
+                <h1>Hello,{userObj && userObj.userName}</h1>
             </div>
             
         <div className="favorites-orders-container">
@@ -78,7 +77,7 @@ const UserCard = () => {
 
         </div>
           { isLoggedIn ? (
-            <button className="logout-btn" onClick={LogOut}>LogOut</button>
+            <button className="logout-btn" onClick={()=>LogOut()}>LogOut</button>
                  
           ) : (
             <Link to="/login">

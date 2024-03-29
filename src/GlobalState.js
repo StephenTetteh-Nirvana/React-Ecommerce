@@ -9,6 +9,7 @@ const GlobalState = createContext();
 export const CartProvider = ({children}) =>{
     const [userObj,setuserObj] = useState([])
     const [cart,setCart] = useState([])
+    const [orders,setOrders] = useState([])
     const [favorites,setFavorites] = useState([])
     const [allProducts,setallProducts] = useState([])
     const [loadedProducts,setloadedProducts] = useState(false)
@@ -50,6 +51,10 @@ export const CartProvider = ({children}) =>{
             const colRef = doc(db,"Users",uid)
             const userDoc = await getDoc(colRef)
             if(userDoc.exists){
+                const orderData = userDoc.data().order
+                const updated = [...orderData]
+                setOrders(updated)
+                localStorage.setItem("orders",JSON.stringify(updated))
                 const userData = userDoc.data();
                 setuserObj(userData)
               }else{
@@ -148,6 +153,7 @@ export const CartProvider = ({children}) =>{
         userObj,
         cart,
         setCart,
+        setOrders,
         favorites,
         setFavorites,
         deleteFromFavorites,
