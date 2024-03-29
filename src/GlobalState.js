@@ -112,6 +112,7 @@ export const CartProvider = ({children}) =>{
         }
         return item;
       });
+      
       setCart(updatedCart);
       localStorage.setItem("cart", JSON.stringify(updatedCart));
     };
