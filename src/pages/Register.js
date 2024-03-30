@@ -46,9 +46,6 @@ const Register = () => {
       setPasswordStrength('Weak Password');
       setDisabled(true)
     } else {
-      if (email.includes("@gmail.com") && password.length >= 5) {
-        setDisabled(false);
-      }
       setPasswordStrength('Strong Password');
     }
   };
