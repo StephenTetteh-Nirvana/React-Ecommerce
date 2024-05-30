@@ -1,7 +1,6 @@
 import { createContext,useEffect,useState } from "react"
 import { db,auth } from "./firebase.js"
 import { collection, doc, getDoc, getDocs } from "firebase/firestore"
-import { onAuthStateChanged } from "firebase/auth";
 import { toast } from "react-toastify";
 
 const GlobalState = createContext();
