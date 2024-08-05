@@ -14,13 +14,10 @@ import Login from "./pages/Login.js"
 import Register from "./pages/Register.js"
 
 
-
-
 function App() {
   return (
     <div className="App">
       <ToastContainer/>
-      
       <Routes>
         <Route path="/" element={<Home/>}></Route>
         <Route path="/user" element={<User/>}></Route>

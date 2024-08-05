@@ -1,3 +1,30 @@
+.badConnectionBox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.badConnectionBox button{
+    padding: 10px 17px;
+    border-radius: 8px;
+    border: none;
+    margin-top:10px;
+    margin-left: 40%;
+    background: transparent;
+    border: 1px solid black;
+    cursor: pointer;
+    font-size: 15px;
+}
+.badConnectionBox button:hover{
+    font-weight: bolder;
+}
+
+.refreshIcon{
+    margin-right: 3px;
+    transform: translateY(3px);
+}
+
 .product-box{
     width:300px;
     height:300px;

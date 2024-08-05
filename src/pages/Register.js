@@ -4,9 +4,10 @@ import { useState } from "react"
 import { db,auth } from "../firebase.js"
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { collection,doc,setDoc } from "firebase/firestore"
-import "../css/Register.css"
 import { toast } from "react-toastify"
+import Logo from "../images/logo.png"
 import AuthLoader from "../components/AuthLoader.jsx"
+import "../css/Register.css"
 
 
 const Register = () => {
@@ -64,7 +65,6 @@ const Register = () => {
     else if( value !== password ) {
       setDisabled(true)
       setConfirmPasswords("Passwords don't match")
-      console.log("not equal")
       setPasswordConfirm(value)
     }
     else{
@@ -79,98 +79,86 @@ const Register = () => {
     checkPasswordConfirm(value)
   };
 
-
-
   const RegisterUser = async () => {
-    if (userName === "" || (email === "" || password === "" || passwordConfirm === "")) {
-      toast.error("Complete the form",{
-        autoClose:2500,
-        pauseOnHover:true,
-        position:"top-center"
-      })
-      
-    } else{
-      if(password === passwordConfirm){
-        try{
-          setLoading(true)
-          await createUserWithEmailAndPassword(auth,email,password)
-          const user = auth.currentUser;
-            if(user){
-              const colRef = collection(db,"Users")
-              const userDoc = doc(colRef,user.uid)
-              await setDoc(userDoc,{
-                userName:userName,
-                order: []
-              })
-              toast.success("Account created succesfully",{
-                autoClose:1000,
-                position:"top-center"
-              })
-              navigate('/login')
-            }
-            setUserName('')
-            setEmail('')
-            setPassword('')
-            setPasswordConfirm('')
+      try{
+        setLoading(true)
+        await createUserWithEmailAndPassword(auth,email,password)
+        const user = auth.currentUser;
+          if(user){
+            const colRef = collection(db,"Users")
+            const userDoc = doc(colRef,user.uid)
+            await setDoc(userDoc,{
+              userName:userName,
+              order: []
+            })
+            toast.success("Account created succesfully",{
+              autoClose:1000,
+              position:"top-center"
+            })
+            navigate('/login')
+          }
+          setUserName('')
+          setEmail('')
+          setPassword('')
+          setPasswordConfirm('')
+      }
+      catch(error){
+        switch(error.code){
+          case 'auth/invalid-email':
+            toast.error("Invalid Email",{
+              autoClose:2000,
+              position:"top-center"
+            })
+            break;
+
+          case 'auth/invalid-credential':
+            toast.error("Invalid Credentials",{
+              autoClose:2000,
+              position:"top-center"
+            })
+            break;
+
+          case 'auth/email-already-in-use': 
+            toast.error("Email Already Exists",{
+              autoClose:2000,
+              position:"top-center"
+            })
+            break;
+
+          case 'auth/wrong-password': 
+            toast.error("Incorrect Password",{
+              autoClose:2000,
+              position:"top-center"
+            })
+            break;
+
+          case 'auth/email-already-exists':
+            toast.error("Email Already Exists",{
+              autoClose:2000,
+              position:"top-center"
+            })
+            break;
+
+          default: 
+          toast.error("Please check your internet connection",{
+            autoClose:2000,
+            position:"top-center"
+          })
+          break;
         }
-        catch(error){
-          console.log(error)
-            setLoading(false)
-            if (error.code === 'auth/invalid-email') {
-              toast.error("Invalid Email",{
-                autoClose:2000,
-                position:"top-center"
-              })
-            }else if (error.code === 'auth/invalid-credential') {
-                toast.error("Invalid Credentials",{
-                  autoClose:2000,
-                  position:"top-center"
-                })
-              }else if (error.code === 'auth/email-already-in-use') {
-                toast.error("Email Already Exists",{
-                  autoClose:2000,
-                  position:"top-center"
-                })
-              }
-               else if (error.code === 'auth/wrong-password') {
-                toast.error("Incorrect Password",{
-                  autoClose:2000,
-                  position:"top-center"
-                })
-              }
-              else if (error.code === 'auth/email-already-exists') {
-                toast.error("Email Already Exists",{
-                  autoClose:2000,
-                  position:"top-center"
-                })
-                }else if (error.code === 'auth/weak-password') {
-                toast.error("Password should be atleast 6 characters",{
-                  autoClose:2000,
-                  position:"top-center"
-                })
-              }
-              else{
-                toast.error("Please check your internet connection",{
-                  autoClose:2000,
-                  position:"top-center"
-                })
-              }
-        } 
-     }else{
-      toast.error("Passwords don't match",{
-        autoClose:1500,
-        position:"top-center"
-      })
-     }
-}
-}
+      }finally{
+        setLoading(false)
+      } 
+  }
 
 
   return (
     <div className="main">
         <form className="registerForm" onSubmit={(e)=>e.preventDefault()}>
+          <div className="logoContainer" onClick={()=>navigate("/")}>
+            <img src={Logo} alt="logo here"/>
+          </div>
           <h3>Sign Up</h3>
-          
           <label>UserName</label>
           <input type="text" 
           placeholder="Username"  
@@ -223,19 +211,17 @@ const Register = () => {
            <span className={confirmPasswords === "Passwords don't match" ? "no-match" : 
            confirmPasswords === "Passwords Match" ? "match" : ""}>{confirmPasswords}</span>
           }
-
-
           { loading ? (
             <AuthLoader/>
           ) : (
             <button 
-                className={`register-btn ${disabled ? "disabled" : ""}`} 
-                disabled={disabled} 
-                onClick={RegisterUser}>Register</button> 
+              className={`register-btn ${disabled ? "disabled" : ""}`} 
+              disabled={disabled} 
+              onClick={RegisterUser}>Register</button> 
           )
           }
           <h4>Already Have An Account?
-          <span><Link to="/login">Login</Link></span>
+          <span><Link className="login-link" to="/login"> Login</Link></span>
           </h4>
         </form>
     </div>

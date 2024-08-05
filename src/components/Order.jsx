@@ -7,7 +7,7 @@ const Order = ({order}) => {
     <div className="order-product-container">
         <div className="order-product-box">
             <div className="order-first-section">
-               <img src={require(`../images/${order.image}`)} alt="order"/>
+              <img src={require(`../images/${order.image}`)} alt="order"/>
             </div>
             <div className="order-second-section">
               <div className="order-info-section">

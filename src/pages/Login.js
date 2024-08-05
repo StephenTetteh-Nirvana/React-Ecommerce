@@ -1,19 +1,18 @@
-import { useEffect, useState } from "react"
-import "../css/Login.css"
+import { useState } from "react"
 import { toast } from "react-toastify"
 import { Link, useNavigate } from "react-router-dom"
-import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth"
+import { signInWithEmailAndPassword } from "firebase/auth"
 import { doc,getDoc } from "firebase/firestore"
 import { auth,db } from "../firebase.js"
+import Logo from "../images/logo.png"
 import AuthLoader from "../components/AuthLoader.jsx"
+import "../css/Login.css"
 
 const Login = () => {
   const [ email,setEmail] = useState('')
   const [password,setPassword] = useState('')
   const [loading,setLoading] = useState(false)
-
   const navigate = useNavigate()
-
 
   const LoginUser = async() =>{
     if(email === "" || password === "" ){
@@ -23,7 +22,6 @@ const Login = () => {
       })
       return;
     }
-
      try{
       setLoading(true)
       await signInWithEmailAndPassword(auth,email,password)
@@ -44,76 +42,93 @@ const Login = () => {
         }
     }
     catch(error){
-      console.log(error)
-      setLoading(false)
-      if (error.code === 'auth/invalid-email') {
-        toast.error("Invalid Email",{
-          autoClose:2000,
-          position:"top-center"
-        })
-      }else if (error.code === 'auth/invalid-credential') {
+      switch(error.code){
+        case 'auth/invalid-email':
+          toast.error("Invalid Email",{
+            autoClose:2000,
+            position:"top-center"
+          })
+          break;
+
+        case 'auth/invalid-credential':
           toast.error("Invalid Credentials",{
             autoClose:2000,
             position:"top-center"
           })
-        } else if (error.code === 'auth/wrong-password') {
+          break;
+
+        case 'auth/email-already-in-use': 
+          toast.error("Email Already Exists",{
+            autoClose:2000,
+            position:"top-center"
+          })
+          break;
+
+        case 'auth/wrong-password': 
           toast.error("Incorrect Password",{
             autoClose:2000,
             position:"top-center"
           })
-        } else if (error.code === 'auth/user-not-found') {
-          toast.error("No User Was Found",{
+          break;
+
+        case 'auth/user-not-found':
+          toast.error("No user was found",{
             autoClose:2000,
             position:"top-center"
           })
-          }else if (error.code === 'auth/weak-password') {
+          break;
+
+        case 'auth/weak-password':
           toast.error("Password should be atleast 6 characters",{
             autoClose:2000,
             position:"top-center"
           })
-        }
-        else {
-          toast.error("Check your internet connection",{
-            autoClose:2000,
-            position:"top-center"
-          })
-        }
-    
+          break;
+
+        default: 
+        toast.error("Please check your internet connection",{
+          autoClose:2000,
+          position:"top-center"
+        })
+        break;
+      }
+  }finally{
+    setLoading(false)
   }
 }
 
   
   return (
     <div className="main">
-          <form className="form" onSubmit={(e)=>e.preventDefault()}>
-              <h3>Sign In</h3>
+      <form className="form" onSubmit={(e)=>e.preventDefault()}>
+        <div className="logoContainer" onClick={()=>navigate("/")}>
+         <img src={Logo} alt="logo here"/>
+        </div>
+        <h3>Sign In</h3>
+        <input type="text" 
+        placeholder="Email"
+        className="login-email-input"
+        value={email}
+        onChange={(e)=>setEmail(e.target.value)}
+        autoComplete="off" 
+        required/>
 
-              <input type="text" 
-              placeholder="Email"
-              className="login-email-input"
-              value={email}
-              onChange={(e)=>setEmail(e.target.value)}
-              autoComplete="off" 
-              required/>
-
-              <input type="password" 
-              placeholder="Password"
-              className="login-password-input"
-              autoComplete="off" 
-              value={password}
-              onChange={(e)=>setPassword(e.target.value)}
-              required/>
-  
-              {loading ? (
-              <AuthLoader/>
-              ) : (
-                <button className="submit-btn" onClick={LoginUser}>Login</button> 
-              )}
-              
-              <h4>Don't Have An Account?
-                <span><Link to="/register">Register</Link></span>
-              </h4>
-            </form>
+        <input type="password" 
+        placeholder="Password"
+        className="login-password-input"
+        autoComplete="off" 
+        value={password}
+        onChange={(e)=>setPassword(e.target.value)}
+        required/>
+        {loading ? (
+        <AuthLoader/>
+        ) : (
+          <button className="submit-btn" onClick={LoginUser}>Login</button> 
+        )}
+        <h4>Don't Have An Account?
+          <span><Link className="register-link" to="/register"> Register</Link></span>
+        </h4>
+        </form>
 
             
    </div>

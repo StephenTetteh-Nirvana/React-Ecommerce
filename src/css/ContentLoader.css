@@ -1,0 +1,44 @@
+.dotsContainer {
+    padding: 10px;
+    background-color: #000;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 80px;
+    height: 70px;
+}
+.dots {
+    margin-left: 15px;
+    margin-top: 30px;
+    width: 3.5em;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .dots div {
+    width: 0.8em;
+    height: 0.8em;
+    border-radius: 50%;
+    background-color: white;
+    animation: fade 0.8s ease-in-out alternate infinite;
+  }
+  
+  .dots div:nth-of-type(1) {
+    animation-delay: -0.4s;
+  }
+  
+  .dots div:nth-of-type(2) {
+    animation-delay: -0.2s;
+  }
+  
+  @keyframes fade {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+  
